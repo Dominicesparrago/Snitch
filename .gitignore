@@ -103,7 +103,7 @@ dist
 # TernJS port file
 .tern-port
 
-# SQLite database files (uncomment if you don't want to commit these)
+# SQLite database files - INCLUDE these files in git!
 # *.db
 # *.sqlite
 # *.sqlite3

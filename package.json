@@ -1,16 +1,19 @@
 {
-  "name": "settings-help-app",
+  "name": "snitch-web",
   "version": "1.0.0",
-  "description": "Settings and Help functionality with API",
-  "main": "server.js",
+  "description": "Educational platform for teachers and students",
+  "main": "index.js",
   "scripts": {
-    "start": "node server.js",
-    "client": "cd client && npm start",
-    "server": "nodemon server.js",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "initdb": "node initdb.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "education",
+    "classroom",
+    "teaching"
+  ],
+  "author": "Dominic Esparrago",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {

@@ -4,29 +4,136 @@ const path = require('path');
 const fs = require('fs');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
-// Middleware
+// Improved error handling for middleware
+app.use((err, req, res, next) => {
+  console.error('Express error:', err.stack);
+  res.status(500).json({ error: 'Server error', message: err.message });
+});
+
+// Middleware - Make sure these come BEFORE route definitions
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname)); // Serve index.html and static assets
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
+
+// CORS headers for local development
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(200);
+  }
+  next();
+});
+
+// Logging middleware for debugging
+app.use((req, res, next) => {
+  console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
+  next();
+});
 
 // Route to serve index.html
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// Database setup
+// Database setup - make sure DB path is correct
 const dbPath = path.join(__dirname, 'assets', 'files', 'database.sqlite');
+const schemaPath = path.join(__dirname, 'assets', 'files', 'database-schema.sql');
+
+// Check if database directory exists, create if not
+const dbDir = path.dirname(dbPath);
+if (!fs.existsSync(dbDir)) {
+  fs.mkdirSync(dbDir, { recursive: true });
+  console.log(`Created database directory: ${dbDir}`);
+}
+
+// Function to initialize the database with schema
+function initializeDatabase() {
+  console.log('Initializing database with schema...');
+  
+  // Check if schema file exists
+  if (!fs.existsSync(schemaPath)) {
+    console.error('Schema file not found at:', schemaPath);
+    return;
+  }
+  
+  // Read the schema file
+  const schema = fs.readFileSync(schemaPath, 'utf8');
+  
+  // Split the schema into individual statements
+  const statements = schema.split(';').filter(stmt => stmt.trim() !== '');
+  
+  // Execute each statement
+  db.serialize(() => {
+    db.run('PRAGMA foreign_keys = ON');
+    
+    statements.forEach(statement => {
+      db.run(statement, error => {
+        if (error) {
+          console.error('Error executing schema statement:', error);
+          console.error('Failed statement:', statement);
+        }
+      });
+    });
+    
+    console.log('Database schema initialized successfully');
+  });
+}
+
+// Connect to database with better error handling
 const db = new sqlite3.Database(dbPath, (err) => {
-  if (err) console.error('❌ Database connection error:', err.message);
-  else console.log('✅ Connected to SQLite database');
+  if (err) {
+    console.error('❌ Database connection error:', err.message);
+    // Don't exit the process, but log the error
+  } else {
+    console.log('✅ Connected to SQLite database at:', dbPath);
+    
+    // Check if this is a new database
+    db.get("SELECT name FROM sqlite_master WHERE type='table' AND name='userAccountsTeacher'", (err, row) => {
+      if (err) {
+        console.error('Error checking for existing tables:', err);
+      } else if (!row) {
+        console.log('No existing tables found, initializing database...');
+        initializeDatabase();
+      } else {
+        console.log('Database already initialized with tables');
+      }
+    });
+  }
+});
+
+// Handle DB close on application shutdown
+process.on('SIGINT', () => {
+  db.close((err) => {
+    if (err) {
+      console.error('Error closing database:', err.message);
+    } else {
+      console.log('Database connection closed');
+    }
+    process.exit(0);
+  });
 });
 
 // Login endpoint
 app.post('/api/login', (req, res) => {
+  // Ensure the request has a body
+  if (!req.body || Object.keys(req.body).length === 0) {
+    console.error('Empty request body or invalid JSON');
+    return res.status(400).json({ error: 'Invalid request - no JSON body' });
+  }
+
   const { emailAddress, password } = req.body;
   console.log('Login attempt:', { emailAddress, password }); // Debugging line
+
+  // Validate inputs
+  if (!emailAddress || !password) {
+    console.error('Missing credentials');
+    return res.status(400).json({ error: 'Email and password are required' });
+  }
 
   // Check in student table first
   let query = 'SELECT * FROM "userAccountsStudent" WHERE "emailAddress" = ? AND password = ?';
@@ -75,6 +182,14 @@ app.post('/api/login', (req, res) => {
     
     res.json(userData);
   });
+});
+
+// Handle incorrect method for login endpoint
+app.all('/api/login', (req, res, next) => {
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed. Use POST for login requests.' });
+  }
+  next();
 });
 
 // Signup - Teacher
@@ -496,98 +611,6 @@ app.get('/api/classrooms/:id', (req, res) => {
     res.json(classroom);
   });
 });
-
-// Initialize the database tables if they don't exist
-function initializeDatabase() {
-  console.log('Initializing database tables if needed...');
-  
-  // Create classroomStudents junction table if it doesn't exist
-  db.run(`
-    CREATE TABLE IF NOT EXISTS classroomStudents (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      classroomID INTEGER,
-      studentID INTEGER,
-      joinDate TEXT,
-      status TEXT DEFAULT 'active',
-      FOREIGN KEY (classroomID) REFERENCES classroomDatabase(ID),
-      FOREIGN KEY (studentID) REFERENCES userAccountsStudent(studentID),
-      UNIQUE(classroomID, studentID)
-    )
-  `, err => {
-    if (err) {
-      console.error('Error creating classroomStudents table:', err);
-    } else {
-      console.log('classroomStudents table initialized successfully');
-    }
-  });
-  
-  // Create activities table
-  db.run(`
-    CREATE TABLE IF NOT EXISTS activities (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      classroomID INTEGER,
-      title TEXT NOT NULL,
-      description TEXT,
-      type TEXT NOT NULL,
-      dueDate TEXT,
-      maxScore INTEGER DEFAULT 100,
-      createdAt TEXT DEFAULT CURRENT_TIMESTAMP,
-      status TEXT DEFAULT 'active',
-      FOREIGN KEY (classroomID) REFERENCES classroomDatabase(ID)
-    )
-  `, err => {
-    if (err) {
-      console.error('Error creating activities table:', err);
-    } else {
-      console.log('activities table initialized successfully');
-    }
-  });
-  
-  // Create table for activity questions (for quizzes, forms, etc.)
-  db.run(`
-    CREATE TABLE IF NOT EXISTS activityQuestions (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      activityID INTEGER,
-      questionText TEXT NOT NULL,
-      questionType TEXT NOT NULL,
-      options TEXT,
-      required INTEGER DEFAULT 1,
-      orderIndex INTEGER,
-      FOREIGN KEY (activityID) REFERENCES activities(id)
-    )
-  `, err => {
-    if (err) {
-      console.error('Error creating activityQuestions table:', err);
-    } else {
-      console.log('activityQuestions table initialized successfully');
-    }
-  });
-  
-  // Create table for student submissions
-  db.run(`
-    CREATE TABLE IF NOT EXISTS activitySubmissions (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      activityID INTEGER,
-      studentID INTEGER,
-      submissionData TEXT,
-      score INTEGER,
-      feedback TEXT,
-      submittedAt TEXT DEFAULT CURRENT_TIMESTAMP,
-      status TEXT DEFAULT 'submitted',
-      FOREIGN KEY (activityID) REFERENCES activities(id),
-      FOREIGN KEY (studentID) REFERENCES userAccountsStudent(studentID)
-    )
-  `, err => {
-    if (err) {
-      console.error('Error creating activitySubmissions table:', err);
-    } else {
-      console.log('activitySubmissions table initialized successfully');
-    }
-  });
-}
-
-// Call the initialization function when the app starts
-initializeDatabase();
 
 // Get students in a classroom
 app.get('/api/classrooms/:id/students', (req, res) => {

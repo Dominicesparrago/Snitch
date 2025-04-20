@@ -79,92 +79,76 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    if (searchInput) {
-        searchInput.addEventListener('input', (e) => {
-            const query = e.target.value.trim();
-            const userData = JSON.parse(localStorage.getItem('userData')); // Get userData
-
-            if (query) {
-                const results = searchClassrooms(query);
-                displayClassrooms(results);
-            } else {
-                if (userData && userData.teacherID) {
-                    loadClassrooms(userData.teacherID); // Pass teacherID to loadClassrooms
-                }
-            }
-        });
-    } else {
-        console.error('Search input not found');
-    }
-
     const loginForm = document.getElementById('loginForm');
     
-    loginForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        
-        try {
-            // First try to login as a teacher
-            const teacherResponse = await fetch('/api/auth/login-teacher', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ email, password })
-            });
+    if (loginForm) {
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
             
-            if (teacherResponse.ok) {
-                const teacherData = await teacherResponse.json();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            try {
+                // First try to login as a teacher
+                const teacherResponse = await fetch('/api/auth/login-teacher', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password })
+                });
                 
-                // Save teacher data to localStorage
-                localStorage.setItem('userData', JSON.stringify({
-                    name: teacherData.name,
-                    teacherID: teacherData.teacherID,
-                    email: teacherData.emailAddress,
-                    role: 'teacher'
-                }));
+                if (teacherResponse.ok) {
+                    const teacherData = await teacherResponse.json();
+                    
+                    // Save teacher data to localStorage
+                    localStorage.setItem('userData', JSON.stringify({
+                        name: teacherData.name,
+                        teacherID: teacherData.teacherID,
+                        email: teacherData.emailAddress,
+                        role: 'teacher'
+                    }));
+                    
+                    // Redirect to teacher dashboard
+                    window.location.href = 'dashboard.html';
+                    return;
+                }
                 
-                // Redirect to teacher dashboard
-                window.location.href = 'dashboard.html';
-                return;
+                // If not a teacher, try as a student
+                const studentResponse = await fetch('/api/auth/login-student', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                if (studentResponse.ok) {
+                    const studentData = await studentResponse.json();
+                    
+                    // Save student data to localStorage
+                    localStorage.setItem('userData', JSON.stringify({
+                        name: studentData.name,
+                        studentID: studentData.studentID,
+                        email: studentData.emailAddress,
+                        role: 'student'
+                    }));
+                    
+                    // Redirect to student dashboard
+                    window.location.href = 'dashboard.html';
+                    return;
+                }
+                
+                // If both fail, show error
+                document.getElementById('loginError').textContent = 'Invalid email or password';
+                document.getElementById('loginError').style.display = 'block';
+                
+            } catch (error) {
+                console.error('Login error:', error);
+                document.getElementById('loginError').textContent = 'An error occurred during login';
+                document.getElementById('loginError').style.display = 'block';
             }
-            
-            // If not a teacher, try as a student
-            const studentResponse = await fetch('/api/auth/login-student', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ email, password })
-            });
-            
-            if (studentResponse.ok) {
-                const studentData = await studentResponse.json();
-                
-                // Save student data to localStorage
-                localStorage.setItem('userData', JSON.stringify({
-                    name: studentData.name,
-                    studentID: studentData.studentID,
-                    email: studentData.emailAddress,
-                    role: 'student'
-                }));
-                
-                // Redirect to student dashboard
-                window.location.href = 'dashboard.html';
-                return;
-            }
-            
-            // If both fail, show error
-            document.getElementById('loginError').textContent = 'Invalid email or password';
-            document.getElementById('loginError').style.display = 'block';
-            
-        } catch (error) {
-            console.error('Login error:', error);
-            document.getElementById('loginError').textContent = 'An error occurred during login';
-            document.getElementById('loginError').style.display = 'block';
-        }
-    });
+        });
+    }
   });  
 
