@@ -28,16 +28,53 @@ git clone https://github.com/Dominicesparrago/Snitch.git
 npm install
 ```
 
-3. Run the application:
+3. Initialize the database (optional - a default database is already included):
+```
+npm run initdb
+```
+
+4. Run the application:
 ```
 npm start
 ```
 
+5. Open your browser and navigate to:
+```
+http://localhost:3000
+```
+
+## Default Test Accounts
+
+The database comes with pre-configured test accounts:
+
+### Teacher Account
+- Email: teacher@test.com
+- Password: password123
+
+### Student Account
+- Email: student@test.com
+- Password: password123
+
 ## Project Structure
 
 - `assets/` - Contains CSS, JS, and HTML files
+- `assets/files/database.sqlite` - SQLite database file
+- `assets/files/database-schema.sql` - Database schema
 - `index.js` - Main server file
-- `index.html` - Main entry point
+- `initdb.js` - Database initialization script
+
+## Troubleshooting
+
+If you encounter issues with the database:
+
+1. Run the database initialization script:
+```
+npm run initdb
+```
+
+2. Make sure the database file is accessible and not locked by another process
+
+3. Check the server logs for specific database errors
 
 ## Contributors
 
