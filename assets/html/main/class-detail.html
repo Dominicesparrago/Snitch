@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snitch - Class Details</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/main/dashboard.css">
+    <link rel="stylesheet" href="../../css/main/pages.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="../../images/logo.png" alt="Snitch Logo">
+                <h2>Snitch</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <a href="dashboard.html">
+                            <i class="fas fa-home"></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li>
+                        <a href="profile.html">
+                            <i class="fas fa-user"></i>
+                            Profile
+                        </a>
+                    </li>
+                    <li>
+                        <a href="classroom.html" class="active">
+                            <i class="fas fa-chalkboard"></i>
+                            Classroom
+                        </a>
+                    </li>
+                    <li>
+                        <a href="settings.html">
+                            <i class="fas fa-cog"></i>
+                            Settings
+                        </a>
+                    </li>
+                    <li>
+                        <a href="help.html">
+                            <i class="fas fa-question-circle"></i>
+                            Help
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="login.html" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search activities...">
+                </div>
+                <div class="user-profile">
+                    <div class="notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </div>
+                    <div class="profile-dropdown">
+                        <img src="../../images/default-profile.jpg" alt="Profile" class="profile-img">
+                        <span class="username">John Doe</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <div class="welcome-section">
+                    <h1 id="class-name">Loading...</h1>
+                    <p id="class-code">Class Details</p>
+                </div>
+
+                <!-- Class Overview -->
+                <div class="class-overview">
+                    <div class="overview-card">
+                        <h3>Class Statistics</h3>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <i class="fas fa-users"></i>
+                                <span id="students-count">0 Students</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-tasks"></i>
+                                <span id="assignments-count">0 Assignments</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-chart-line"></i>
+                                <span id="class-average">0% Average</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Performance Graph -->
+                <div class="performance-section">
+                    <h2>Class Performance</h2>
+                    <div class="chart-container">
+                        <canvas id="performanceChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Activities Section -->
+                <div class="activities-section">
+                    <h2>Recent Activities</h2>
+                    <div class="activities-list" id="activities-list">
+                        <!-- Activities will be loaded dynamically -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../js/main/pages.js"></script>
+    <script>
+        // Get class ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const classId = urlParams.get('id');
+
+        // Load class details
+        if (classId) {
+            const classrooms = JSON.parse(localStorage.getItem('classrooms')) || [];
+            const classroom = classrooms.find(c => c.id === parseInt(classId));
+
+            if (classroom) {
+                // Update page title and header
+                document.title = `Snitch - ${classroom.className}`;
+                document.getElementById('class-name').textContent = classroom.className;
+                document.getElementById('class-code').textContent = classroom.classCode;
+
+                // Update statistics
+                document.getElementById('students-count').textContent = `${classroom.students} Students`;
+                document.getElementById('assignments-count').textContent = `${classroom.assignments} Assignments`;
+                document.getElementById('class-average').textContent = `${classroom.average || 0}% Average`;
+
+                // Initialize performance chart
+                const ctx = document.getElementById('performanceChart').getContext('2d');
+                const performanceChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5'],
+                        datasets: [{
+                            label: 'Class Average',
+                            data: [75, 82, 88, 85, 90],
+                            borderColor: '#4CAF50',
+                            tension: 0.4,
+                            fill: false
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                            title: {
+                                display: true,
+                                text: 'Weekly Performance Trend'
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: false,
+                                min: 70,
+                                max: 100
+                            }
+                        }
+                    }
+                });
+            } else {
+                // Class not found
+                document.getElementById('class-name').textContent = 'Class Not Found';
+                document.getElementById('class-code').textContent = 'Error';
+            }
+        }
+    </script>
+</body>
+</html> 

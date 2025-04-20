@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - View All Data</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+    h2 {
+      color: #333;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-bottom: 30px;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: left;
+    }
+    th {
+      background: #007bff;
+      color: white;
+    }
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+    .button {
+      padding: 10px 15px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .button:hover {
+      background-color: #0056b3;
+    }
+    .container {
+      max-width: 1200px;
+      margin: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Admin Dashboard - View All Data</h2>
+
+    <!-- Admin Accounts -->
+    <h3>Admin Accounts</h3>
+    <table id="adminTable">
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Password</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <!-- Classroom Data -->
+    <h3>Classroom Database</h3>
+    <table id="classroomTable">
+      <thead>
+        <tr>
+          <th>Classroom</th>
+          <th>Section</th>
+          <th>Activities</th>
+          <th>Score</th>
+          <th>Participants</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <!-- Student Accounts -->
+    <h3>Student Accounts</h3>
+    <table id="studentTable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email Address</th>
+          <th>Student ID</th>
+          <th>Password</th>
+          <th>Contact Number</th>
+          <th>Course</th>
+          <th>Section</th>
+          <th>Classes Joined</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <!-- Teacher Accounts -->
+    <h3>Teacher Accounts</h3>
+    <table id="teacherTable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email Address</th>
+          <th>Teacher ID</th>
+          <th>Password</th>
+          <th>Contact Number</th>
+          <th>Classes Created</th>
+          <th>Class Activities</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script>
+    fetch('/api/view-all')
+      .then(res => res.json())
+      .then(data => {
+        // Populate Admin Accounts Table
+        const adminTable = document.querySelector('#adminTable tbody');
+        data.adminAccounts.forEach(admin => {
+          const row = document.createElement('tr');
+          row.innerHTML = `<td>${admin.username}</td><td>${admin.password}</td>`;
+          adminTable.appendChild(row);
+        });
+
+        // Populate Classroom Database Table
+        const classroomTable = document.querySelector('#classroomTable tbody');
+        data.classroomDatabase.forEach(classroom => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${classroom.classroom}</td>
+            <td>${classroom.section}</td>
+            <td>${classroom.activities}</td>
+            <td>${classroom.score}</td>
+            <td>${classroom.participants}</td>
+          `;
+          classroomTable.appendChild(row);
+        });
+
+        // Populate Student Accounts Table
+        const studentTable = document.querySelector('#studentTable tbody');
+        data.userAccountsStudent.forEach(student => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${student.name}</td>
+            <td>${student.emailAddress}</td>
+            <td>${student.studentID}</td>
+            <td>${student.password}</td>
+            <td>${student.contactNumber}</td>
+            <td>${student.course}</td>
+            <td>${student.section}</td>
+            <td>${student.classesJoined}</td>
+          `;
+          studentTable.appendChild(row);
+        });
+
+        // Populate Teacher Accounts Table
+        const teacherTable = document.querySelector('#teacherTable tbody');
+        data.userAccountsTeacher.forEach(teacher => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${teacher.name}</td>
+            <td>${teacher.emailAddress}</td>
+            <td>${teacher.teacherID}</td>
+            <td>${teacher.password}</td>
+            <td>${teacher.contactNumber}</td>
+            <td>${teacher.classesCreated}</td>
+            <td>${teacher.classActivities}</td>
+          `;
+          teacherTable.appendChild(row);
+        });
+      });
+  </script>
+</body>
+</html>

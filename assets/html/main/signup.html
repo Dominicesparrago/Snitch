@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Signup Portal</title>
+    <link rel="stylesheet" href="../../css/main/signup.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container signup-container">
+        <div class="forms-container signup-forms-container">
+            <div class="login-signup">
+                <form action="#" class="login-form teacher-form active" id="teacher-signup-form">
+                    <h2>Teacher Registration</h2>
+                    <div class="input-field">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="teacher-fullname" placeholder="Full Name">
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="teacher-email" placeholder="Email Address">
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-id-badge"></i>
+                        <input type="text" id="teacher-id" placeholder="Teacher ID">
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="teacher-password" placeholder="Password">
+                        <i class="fas fa-eye toggle-password" data-target="teacher-password"></i>
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="teacher-confirm-password" placeholder="Confirm Password">
+                        <i class="fas fa-eye toggle-password" data-target="teacher-confirm-password"></i>
+                    </div>
+                    <div class="checkbox-text">
+                        <div class="checkbox-content">
+                            <input type="checkbox" id="teacher-terms">
+                            <label for="teacher-terms">I accept the Terms & Conditions</label>
+                        </div>
+                    </div>
+                    <div class="input-field button">
+                        <input type="button" value="REGISTER" class="signup-btn teacher-signup-btn">
+                    </div>
+                    <div class="login-signup">
+                        <span class="text">Already registered?
+                            <a href="login.html" class="login-link">Login now</a>
+                        </span>
+                    </div>
+                    <div class="error-message" id="teacher-error"></div>
+                </form>
+
+                <form action="#" class="login-form student-form" id="student-signup-form">
+                    <h2>Student Registration</h2>
+                    <div class="input-field">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="student-fullname" placeholder="Full Name">
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="student-email" placeholder="Email Address">
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-id-badge"></i>
+                        <input type="text" id="student-id" placeholder="Student ID">
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="student-password" placeholder="Password">
+                        <i class="fas fa-eye toggle-password" data-target="student-password"></i>
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="student-confirm-password" placeholder="Confirm Password">
+                        <i class="fas fa-eye toggle-password" data-target="student-confirm-password"></i>
+                    </div>
+                    <div class="checkbox-text">
+                        <div class="checkbox-content">
+                            <input type="checkbox" id="student-terms">
+                            <label for="student-terms">I accept the Terms & Conditions</label>
+                        </div>
+                    </div>
+                    <div class="input-field button">
+                        <input type="button" value="REGISTER" class="signup-btn student-signup-btn">
+                    </div>
+                    <div class="login-signup">
+                        <span class="text">Already registered?
+                            <a href="login.html" class="login-link">Login now</a>
+                        </span>
+                    </div>
+                    <div class="error-message" id="student-error"></div>
+                </form>
+            </div>
+        </div>
+
+        <div class="panels-container">
+            <div class="panel left-panel teacher-panel active">
+                <div class="image-container">
+                    <img src="../../files/icons/Teacher.png" class="image" alt="teacher image">
+                </div>
+                <div class="content">
+                    <h3>Teacher Registration</h3>
+                    <p>Join our platform to create and manage your courses, track student progress, and engage with your classes</p>
+                    <button class="btn transparent" id="student-btn">Student Registration</button>
+                </div>
+            </div>
+
+            <div class="panel right-panel student-panel">
+                <div class="image-container">
+                    <img src="../../files/icons/Student.png" class="image" alt="student image">
+                </div>
+                <div class="content">
+                    <h3>Student Registration</h3>
+                    <p>Sign up to access courses, participate in discussions, submit assignments and track your academic progress</p>
+                    <button class="btn transparent" id="teacher-btn">Teacher Registration</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/main/signup.js"></script>
+</body>
+</html> 

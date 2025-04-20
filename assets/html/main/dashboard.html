@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Snitch Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+  <link rel="stylesheet" href="../../css/main/dashboard.css"/>
+</head>
+<body>
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <img src="../../files/icons/Teacher.png" alt="Snitch Logo" class="logo"/>
+        <h2>Snitch</h2>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="dashboard.html" class="active"><i class="fas fa-home"></i> Dashboard</a></li>
+          <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>
+          <li><a href="classroom.html"><i class="fas fa-chalkboard"></i> Classroom</a></li>
+          <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+          <li><a href="help.html"><i class="fas fa-question-circle"></i> Help</a></li>
+        </ul>
+      </nav>
+      <div class="sidebar-footer">
+        <a href="#" id="logout-btn" class="logout-btn">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="top-bar">
+        <div class="search-bar">
+          <i class="fas fa-search"></i>
+          <input type="text" placeholder="Search..." />
+        </div>
+        <div class="user-profile">
+          <div class="notifications">
+            <i class="fas fa-bell"></i>
+            <span class="notification-badge">3</span>
+          </div>
+          <div class="profile-dropdown">
+            <img src="../../images/default-profile.jpg" alt="Profile" class="profile-img"/>
+            <span class="username">John Doe</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+        </div>
+      </header>
+
+      <div class="content-area">
+        <div class="welcome-section">
+          <h1>Welcome back, <span class="username-placeholder">John</span>!</h1>
+          <p>Here's what's happening today</p>
+        </div>
+
+        <div class="classroom-grid"></div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-book"></i></div>
+            <div class="stat-info">
+              <h3>Classrooms</h3>
+              <p class="stat-number">5</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-tasks"></i></div>
+            <div class="stat-info">
+              <h3>Activities</h3>
+              <p class="stat-number">3</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="recent-activity">
+          <h2>Recent Activity</h2>
+          <div class="activity-list">
+            <div class="activity-item">
+              <div class="activity-icon"><i class="fas fa-file-alt"></i></div>
+              <div class="activity-details">
+                <h3>New Assignment Posted</h3>
+                <p>Math - Chapter 5 Exercises</p>
+                <span class="activity-time">2 hours ago</span>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-icon"><i class="fas fa-comment"></i></div>
+              <div class="activity-details">
+                <h3>New Message</h3>
+                <p>From: Mrs. Smith</p>
+                <span class="activity-time">4 hours ago</span>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-icon"><i class="fas fa-check-circle"></i></div>
+              <div class="activity-details">
+                <h3>Assignment Graded</h3>
+                <p>Science Project - 95%</p>
+                <span class="activity-time">Yesterday</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="../../js/main/pages.js"></script>
+  <script src="../../js/main/dashboard.js"></script>
+</body>
+</html>

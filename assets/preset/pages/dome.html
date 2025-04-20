@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snitch</title>   
+    <link rel="stylesheet" href="style2.css">
+    <link rel="javascript" href="function.js">
+</head>
+<body>
+    <!--
+    <nav class="sidebar">
+        <div class="logo">
+            <img class="iconsSidebar" src="icons/classroom.ico" alt="Classroom Icon">
+            <p class="spandex">Snitch</p>
+        </div>
+        <a href="#" class="nav-item active">
+            <img class = "iconsSidebar" src="icons/classroom.ico" alt="Home">
+            <span>Home</span>
+        </a>
+        <a href="#" class="nav-item">
+            <img class = "iconsSidebar" src="icons/profile.ico" alt="Profile"> 
+            <span>Profile</span>
+        </a>
+        <a href="#" class="nav-item">
+            <img class = "iconsSidebar" src="icons/classroom.ico" alt="Classroom">
+            <span>Classroom</span>
+        </a>
+        <a href="#" class="nav-item">
+            <img class = "iconsSidebar" src="icons/settings.ico" alt="Settings">
+            <span>Settings</span>
+        </a>
+        <a href="#" class="nav-item">
+            <img class = "iconsSidebar" src="icons/settings.ico" alt="Help">
+            <span>Help</span>
+        </a>
+    </nav>
+-->
+    <div class="main-content">
+        <!-- Home Page -->
+        <div class="page" id="home-page">
+            <div class="welcome-header">
+                <h1>Welcome, Haruchiyo!</h1>
+            </div>
+            <div class="class-grid">
+                <img class="image-class" src="class-images/xample1.jpg">
+                <div class="class-card">
+                    <div class="class-background">
+                            <h3 class="class-title">Thesis 1 & 2 </h3>
+                            <h3 class="class-section">BSCS 4-B </h3>
+                            <p class="class-time">2:30AM - 5:30PM</p>
+                            <p>Teacher: HatsuneMiku123</p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        <!-- Profile Page -->
+        <div class="page" id="profile-page" style="display: none;">
+            <div class="profile-section">
+                <img src="profile-pic.svg" alt="Profile Picture" class="profile-image">
+                <div class="profile-info">
+                    <h2>HatsuneMiku123</h2>
+                    <p>Data Structure and Algorithm</p>
+                    <p>Teacher/Professor</p>
+                </div>
+            </div>
+            <div class="class-list">
+                <h3>Classes</h3>
+                <table>
+                    <tr>
+                        <th>Class</th>
+                        <th>Subject</th>
+                    </tr>
+                    <tr>
+                        <td>BSCS 4-B</td>
+                        <td>Thesis 1 & 2</td>
+                    </tr>
+                    <tr>
+                        <td>BSCS 3-A</td>
+                        <td>Data Structure and Algorithm</td>
+                    </tr>
+                    <tr>
+                        <td>BSCS 1-A</td>
+                        <td>Fundamentals of Programming</td>
+                    </tr>
+                    <tr>
+                        <td>BSMLS 1-O</td>
+                        <td>Life & Works of Rizal</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- Settings Page -->
+        <div class="page" id="settings-page" style="display: none;">
+            <div class="settings-panel">
+                <div class="setting-item">
+                    <span>Dark mode</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <span>Anti-Cheat</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <span>Monitor class</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <span>Biometrics</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <span>Reset password</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <span>HTTPS/HTTP SECURITY</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <span>Reset Email</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

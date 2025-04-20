@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Activity Score and Answers Page">
+    <title>Activity Score & Answers</title>
+    <link rel="stylesheet" href="classroom-after.css">
+</head>
+<body>
+    <main class="content">
+        <aside class="sidebar">
+            <h2>Your Score</h2>
+            <div class="score-graph-container">
+                <div class="score-graph-wrapper" role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="5">
+                    <div class="score-fill"></div>
+                    <div class="score-mask"></div>
+                    <span class="score-label">2/5</span>
+                </div>
+            </div>                         
+        </aside>
+        <section class="main-content">
+            <h1>Questions and Answers</h1>
+            <div class="question-and-answers">
+                <article class="qa-item">
+                    <h3 class="question">1. Kiara baked 30 oatmeal cookies and 48 chocolate chip cookies. If she wants to divide them into identical containers with the maximum possible number of cookies, how many containers does she need?</h3>
+                    <div class="answer">
+                        <strong>Answer:</strong> Basta sagot
+                    </div>
+                </article>
+                <article class="qa-item">
+                    <h3 class="question">2. Kiara baked 30 oatmeal cookies and 48 chocolate chip cookies. If she wants to divide them into identical containers with the maximum possible number of cookies, how many containers does she need?</h3>
+                    <div class="answer">
+                        <strong>Answer:</strong> Basta sagot
+                    </div>
+                </article>
+                <article class="qa-item">
+                    <h3 class="question">3. Kiara baked 30 oatmeal cookies and 48 chocolate chip cookies. If she wants to divide them into identical containers with the maximum possible number of cookies, how many containers does she need?</h3>
+                    <div class="answer">
+                        <strong>Answer:</strong> Basta sagot
+                    </div>
+                </article>
+                <article class="qa-item">
+                    <h3 class="question">4. Kiara baked 30 oatmeal cookies and 48 chocolate chip cookies. If she wants to divide them into identical containers with the maximum possible number of cookies, how many containers does she need?</h3>
+                    <div class="answer">
+                        <strong>Answer:</strong> Basta sagot
+                    </div>
+                </article>
+                <article class="qa-item">
+                    <h3 class="question">5. Kiara baked 30 oatmeal cookies and 48 chocolate chip cookies. If she wants to divide them into identical containers with the maximum possible number of cookies, how many containers does she need?</h3>
+                    <div class="answer">
+                        <strong>Answer:</strong> Basta sagot
+                    </div>
+                </article>
+            </div>
+            <div class="button-container">
+                <a href="cleaned-structure.html" class="back-button">Back to Questions</a>
+            </div>
+        </section>
+    </main>
+    <script>
+        const score = 2;
+        const maxScore = 5;
+        const degree = (score / maxScore) * 180 * 2;
+
+        const fill = document.querySelector('.score-fill');
+        const label = document.querySelector('.score-label');
+        const progressbar = document.querySelector('.score-graph-wrapper');
+
+        label.textContent = `${score}/${maxScore}`;
+        fill.style.background = `conic-gradient(#2196F3 0deg, #2196F3 ${degree}deg, #ffffff ${degree}deg)`;
+        
+        // Update aria attributes for accessibility
+        progressbar.setAttribute('aria-valuenow', score);
+        progressbar.setAttribute('aria-valuetext', `${score} out of ${maxScore} points`);
+    </script>
+</body>
+</html>

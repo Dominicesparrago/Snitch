@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snitch - View Class</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/main/dashboard.css">
+    <link rel="stylesheet" href="../../css/main/pages.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="../../files/icons/Teacher.png" alt="Snitch Logo">
+                <h2>Snitch</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <a href="student-dashboard.html">
+                            <i class="fas fa-home"></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li>
+                        <a href="student-profile.html">
+                            <i class="fas fa-user"></i>
+                            Profile
+                        </a>
+                    </li>
+                    <li>
+                        <a href="student-classroom.html" class="active">
+                            <i class="fas fa-chalkboard"></i>
+                            Classrooms
+                        </a>
+                    </li>
+                    <li>
+                        <a href="student-assignments.html">
+                            <i class="fas fa-tasks"></i>
+                            Assignments
+                        </a>
+                    </li>
+                    <li>
+                        <a href="student-settings.html">
+                            <i class="fas fa-cog"></i>
+                            Settings
+                        </a>
+                    </li>
+                    <li>
+                        <a href="help.html">
+                            <i class="fas fa-question-circle"></i>
+                            Help
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="login.html" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search assignments...">
+                </div>
+                <div class="user-profile">
+                    <div class="notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </div>
+                    <div class="profile-dropdown">
+                        <img src="../../files/images/default-imageprofile.jpg" alt="Profile" class="profile-img">
+                        <span class="username">Student Name</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <div class="welcome-section">
+                    <h1 id="classroom-name">Loading Classroom...</h1>
+                    <p id="classroom-section">Please wait...</p>
+                </div>
+
+                <!-- Tabs -->
+                <div class="tabs-container">
+                    <div class="tabs">
+                        <button class="tab active" data-tab="overview">Overview</button>
+                        <button class="tab" data-tab="assignments">Assignments</button>
+                        <button class="tab" data-tab="classmates">Classmates</button>
+                        <button class="tab" data-tab="grades">My Grades</button>
+                    </div>
+
+                    <!-- Overview Tab -->
+                    <div id="overview" class="tab-content active">
+                        <div class="class-overview">
+                            <div class="overview-card">
+                                <h3>Class Statistics</h3>
+                                <div class="stats-grid" id="stats-grid">
+                                    <div class="stat-item">
+                                        <i class="fas fa-users"></i>
+                                        <span id="participants-count">0 Students</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <i class="fas fa-tasks"></i>
+                                        <span id="activities-count">0 Assignments</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <i class="fas fa-chart-line"></i>
+                                        <span id="class-average">0% Average</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="teacher-info">
+                                <h3>Teacher Information</h3>
+                                <div class="teacher-card">
+                                    <img src="../../files/images/default-imageprofile.jpg" alt="Teacher" class="teacher-img">
+                                    <div class="teacher-details">
+                                        <h4 id="teacher-name">Loading...</h4>
+                                        <p id="teacher-email"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Class Progress -->
+                        <div class="performance-section">
+                            <h2>Your Progress</h2>
+                            <div class="chart-container">
+                                <canvas id="progressChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Assignments Tab -->
+                    <div id="assignments" class="tab-content">
+                        <div class="assignments-list" id="assignments-list">
+                            <p>Loading assignments...</p>
+                        </div>
+                    </div>
+
+                    <!-- Classmates Tab -->
+                    <div id="classmates" class="tab-content">
+                        <div class="classmates-list" id="classmates-list">
+                            <p>Loading classmates...</p>
+                        </div>
+                    </div>
+
+                    <!-- Grades Tab -->
+                    <div id="grades" class="tab-content">
+                        <div class="grades-list" id="grades-list">
+                            <p>Loading grades...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../js/main/pages.js"></script>
+    <script src="../../js/main/student-view-class.js"></script>
+</body>
+</html> 

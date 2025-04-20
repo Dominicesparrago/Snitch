@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snitch - Join Classroom</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/main/dashboard.css">
+    <link rel="stylesheet" href="../../css/main/pages.css">
+    <style>
+        /* Hide the student action button when already on join classroom page */
+        #student-action-button {
+            display: none !important;
+        }
+        
+        .join-classroom-container {
+            max-width: 600px;
+            margin: 40px auto;
+            background-color: #1e1e1e;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .join-form input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            background-color: #333;
+            border: 1px solid #444;
+            border-radius: 5px;
+            color: #e0e0e0;
+            font-size: 16px;
+        }
+        
+        .join-form input:focus {
+            outline: none;
+            border-color: #4a90e2;
+        }
+        
+        .join-btn {
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .join-btn:hover {
+            background-color: #357abd;
+        }
+        
+        .back-btn {
+            margin-top: 20px;
+            display: inline-block;
+            color: #888;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .back-btn i {
+            margin-right: 5px;
+        }
+        
+        .back-btn:hover {
+            color: #4a90e2;
+        }
+        
+        .role-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 15px;
+            border-radius: 50px;
+            color: white;
+            font-weight: bold;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .role-teacher {
+            background-color: #4CAF50;
+        }
+        
+        .role-student {
+            background-color: #3498db;
+        }
+        
+        .role-unknown {
+            background-color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="../../files/icons/Teacher.png" alt="Snitch Logo">
+                <h2>Snitch</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <a href="dashboard.html">
+                            <i class="fas fa-home"></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li>
+                        <a href="profile.html">
+                            <i class="fas fa-user"></i>
+                            Profile
+                        </a>
+                    </li>
+                    <li>
+                        <a href="classroom.html" class="active">
+                            <i class="fas fa-chalkboard"></i>
+                            Classroom
+                        </a>
+                    </li>
+                    <li>
+                        <a href="settings.html">
+                            <i class="fas fa-cog"></i>
+                            Settings
+                        </a>
+                    </li>
+                    <li>
+                        <a href="help.html">
+                            <i class="fas fa-question-circle"></i>
+                            Help
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="login.html" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search...">
+                </div>
+                <div class="user-profile">
+                    <div class="notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </div>
+                    <div class="profile-dropdown">
+                        <img src="../../files/images/default-profile.png" alt="Profile" class="profile-img">
+                        <span class="username">John Doe</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <div class="join-classroom-container">
+                    <h1>Join a Classroom</h1>
+                    <p>Enter the classroom code provided by your teacher:</p>
+                    
+                    <div class="join-form">
+                        <input type="text" id="classroomCode" placeholder="Enter classroom code" required>
+                        <button id="joinClass" class="join-btn">Join Class</button>
+                    </div>
+                    
+                    <div id="joinStatus"></div>
+                    
+                    <a href="classroom.html" class="back-btn">
+                        <i class="fas fa-arrow-left"></i> Back to Classrooms
+                    </a>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Role indicator -->
+    <div id="role-indicator" class="role-indicator role-unknown">
+        <i class="fas fa-question-circle"></i>
+        <span>Detecting role...</span>
+    </div>
+
+    <script>
+        // Role detector script - runs to set up the UI correctly
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get user data
+            const userData = JSON.parse(localStorage.getItem('userData'));
+            console.log("Role detector - userData:", userData);
+            
+            // Update role indicator
+            const roleIndicator = document.getElementById('role-indicator');
+            
+            // Set up UI based on role
+            if (userData) {
+                const isTeacher = userData.role === 'teacher' || (userData.teacherID && !userData.studentID);
+                const isStudent = userData.role === 'student' || (userData.studentID && !userData.teacherID);
+                
+                if (isTeacher) {
+                    // Show teacher UI
+                    console.log("Setting up UI for TEACHER role");
+                    roleIndicator.className = 'role-indicator role-teacher';
+                    roleIndicator.innerHTML = '<i class="fas fa-chalkboard-teacher"></i><span>Teacher Mode</span>';
+                    
+                    // Teacher probably shouldn't be on this page
+                    document.querySelector('.join-classroom-container').innerHTML = `
+                        <h1>Teacher Account Detected</h1>
+                        <p>You are currently signed in as a teacher. Only students can join classrooms.</p>
+                        <a href="classroom.html" class="join-btn" style="display: inline-block; margin-top: 20px; text-decoration: none;">
+                            Go to My Classrooms
+                        </a>
+                    `;
+                    
+                } else if (isStudent) {
+                    // Show student UI
+                    console.log("Setting up UI for STUDENT role");
+                    roleIndicator.className = 'role-indicator role-student';
+                    roleIndicator.innerHTML = '<i class="fas fa-user-graduate"></i><span>Student Mode</span>';
+                } else {
+                    console.log("Role unknown - can't determine teacher or student");
+                    roleIndicator.className = 'role-indicator role-unknown';
+                    roleIndicator.innerHTML = '<i class="fas fa-exclamation-triangle"></i><span>Role Unknown</span>';
+                }
+            } else {
+                console.log("No user data found");
+                roleIndicator.className = 'role-indicator role-unknown';
+                roleIndicator.innerHTML = '<i class="fas fa-exclamation-triangle"></i><span>No User Data</span>';
+            }
+            
+            // Allow clicking on the role indicator to show detailed info
+            roleIndicator.addEventListener('click', function() {
+                const userData = JSON.parse(localStorage.getItem('userData'));
+                alert('User Data: ' + JSON.stringify(userData, null, 2));
+            });
+        });
+        
+        // Join classroom functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const joinButton = document.getElementById('joinClass');
+            const codeInput = document.getElementById('classroomCode');
+            const statusDiv = document.getElementById('joinStatus');
+            
+            if (joinButton && codeInput) {
+                joinButton.addEventListener('click', function() {
+                    const classroomCode = codeInput.value.trim();
+                    
+                    if (!classroomCode) {
+                        statusDiv.innerHTML = `<p style="color: #e74c3c; margin-top: 10px;">Please enter a classroom code</p>`;
+                        return;
+                    }
+                    
+                    // Get student ID from userData
+                    const userData = JSON.parse(localStorage.getItem('userData'));
+                    if (!userData || !userData.studentID) {
+                        statusDiv.innerHTML = `<p style="color: #e74c3c; margin-top: 10px;">Student ID not found. Please log out and log in again.</p>`;
+                        return;
+                    }
+                    
+                    statusDiv.innerHTML = `<p style="color: #4a90e2; margin-top: 10px;">Joining classroom...</p>`;
+                    
+                    // Call API to join classroom
+                    fetch('/api/classrooms/join', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            classroomCode: classroomCode,
+                            studentID: userData.studentID
+                        })
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            return response.json().then(data => {
+                                throw new Error(data.message || 'Failed to join classroom');
+                            });
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        statusDiv.innerHTML = `<p style="color: #2ecc71; margin-top: 10px;">Success! Joined classroom: ${data.classroomName}</p>`;
+                        setTimeout(() => {
+                            window.location.href = 'classroom.html?joined=true';
+                        }, 1500);
+                    })
+                    .catch(error => {
+                        statusDiv.innerHTML = `<p style="color: #e74c3c; margin-top: 10px;">Error: ${error.message}</p>`;
+                    });
+                });
+            }
+        });
+    </script>
+    <script src="../../js/main/classroom.js"></script>
+</body>
+</html> 

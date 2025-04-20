@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snitch - Programming Class</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/main/dashboard.css">
+    <link rel="stylesheet" href="../../css/main/pages.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .tabs-container {
+            margin-top: 20px;
+        }
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 16px;
+            color: #666;
+            position: relative;
+        }
+        .tab.active {
+            color: #4a90e2;
+            font-weight: 600;
+        }
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #4a90e2;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .student-list {
+            background: #323232;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .student-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+        }
+        .student-item:last-child {
+            border-bottom: none;
+        }
+        .activity-list {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .activity-item {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+        }
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="../../files/icons/Teacher.png" alt="Snitch Logo">
+                <h2>Snitch</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <a href="dashboard.html">
+                            <i class="fas fa-home"></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li>
+                        <a href="profile.html">
+                            <i class="fas fa-user"></i>
+                            Profile
+                        </a>
+                    </li>
+                    <li>
+                        <a href="classroom.html" class="active">
+                            <i class="fas fa-chalkboard"></i>
+                            Classroom
+                        </a>
+                    </li>
+                    <li>
+                        <a href="settings.html">
+                            <i class="fas fa-cog"></i>
+                            Settings
+                        </a>
+                    </li>
+                    <li>
+                        <a href="help.html">
+                            <i class="fas fa-question-circle"></i>
+                            Help
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="login.html" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search activities...">
+                </div>
+                <div class="user-profile">
+                    <div class="notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </div>
+                    <div class="profile-dropdown">
+                        <img src="../../files/images/default-profile.png" alt="Profile" class="profile-img">
+                        <span class="username">John Doe</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <div class="welcome-section">
+                    <h1>Introduction to Programming</h1>
+                    <p>CS101 - Class Activities and Performance</p>
+                </div>
+
+                <div class="tabs-container">
+                    <div class="tabs">
+                        <button class="tab active" data-tab="overview">Overview</button>
+                        <button class="tab" data-tab="students">Students</button>
+                        <button class="tab" data-tab="activities">Activities</button>
+                        <button class="tab" data-tab="statistics">Statistics</button>
+                    </div>
+
+                    <!-- Student Join Section (hidden by default, shown for students via JS) -->
+                    <div id="student-join-container" style="display: none; margin-bottom: 20px;">
+                        <div style="background-color: #1e1e1e; border-radius: 8px; padding: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); border: 1px solid #333;">
+                            <h3 style="margin-top: 0; color: #e0e0e0;">Join a Classroom</h3>
+                            <p style="color: #aaa; margin-bottom: 20px;">Enter the classroom code provided by your teacher</p>
+                            <div style="display: flex;">
+                                <input type="text" id="join-code-input" placeholder="Enter classroom code" style="flex: 1; padding: 12px; background-color: #333; border: 1px solid #444; border-radius: 4px 0 0 4px; color: #e0e0e0;">
+                                <button id="join-class-btn" style="padding: 12px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 0 4px 4px 0; cursor: pointer;">Join Class</button>
+                            </div>
+                            <div id="join-error" style="color: #e74c3c; margin-top: 10px; display: none;"></div>
+                        </div>
+                    </div>
+
+                    <div id="overview" class="tab-content active">
+                        <!-- Class Overview -->
+                        <div class="class-overview">
+                            <div class="overview-card">
+                                <h3>Class Statistics</h3>
+                                <div class="stats-grid">
+                                    <div class="stat-item">
+                                        <i class="fas fa-users"></i>
+                                        <span>25 Students</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <i class="fas fa-tasks"></i>
+                                        <span>5 Assignments</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <i class="fas fa-chart-line"></i>
+                                        <span>85% Average</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <button id="debugBtn" style="margin-top: 20px; padding: 8px 16px; background-color: #333; color: white; border: none; border-radius: 4px;">Debug API Call</button>
+                            <div id="debugOutput" style="margin-top: 10px; padding: 10px; background-color: #f5f5f5; border-radius: 4px; max-height: 200px; overflow-y: auto; font-family: monospace; display: none;"></div>
+                        </div>
+
+                        <!-- Performance Graph -->
+                        <div class="performance-section">
+                            <h2>Class Performance</h2>
+                            <div class="chart-container">
+                                <canvas id="performanceChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="students" class="tab-content">
+                        <div class="student-list">
+                            <div class="student-item">
+                                <img src="../../files/images/default-profile.png" alt="Student" class="profile-img" style="width: 40px; height: 40px; border-radius: 50%; margin-right: 15px;">
+                                <div>
+                                    <h4>Alice Johnson</h4>
+                                    <p>Grade: A (92%)</p>
+                                </div>
+                            </div>
+                            <div class="student-item">
+                                <img src="../../files/images/default-profile.png" alt="Student" class="profile-img" style="width: 40px; height: 40px; border-radius: 50%; margin-right: 15px;">
+                                <div>
+                                    <h4>Bob Smith</h4>
+                                    <p>Grade: B+ (88%)</p>
+                                </div>
+                            </div>
+                            <div class="student-item">
+                                <img src="../../files/images/default-profile.png" alt="Student" class="profile-img" style="width: 40px; height: 40px; border-radius: 50%; margin-right: 15px;">
+                                <div>
+                                    <h4>Carol White</h4>
+                                    <p>Grade: A- (90%)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="activities" class="tab-content">
+                        <div class="tab-header">
+                            <h2>Class Activities</h2>
+                            <a href="#" id="manageActivitiesBtn" class="btn" style="display: inline-flex; align-items: center; padding: 8px 16px; background-color: #4a90e2; color: white; text-decoration: none; border-radius: 5px; margin-bottom: 20px;">
+                                <i class="fas fa-tasks" style="margin-right: 8px;"></i> Manage Activities
+                            </a>
+                        </div>
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <h4>Assignment 1: Introduction to HTML</h4>
+                                <p>Due: October 15, 2023</p>
+                            </div>
+                            <div class="activity-item">
+                                <h4>Quiz 1: Basic Programming Concepts</h4>
+                                <p>Due: October 22, 2023</p>
+                            </div>
+                            <div class="activity-item">
+                                <h4>Assignment 2: CSS Fundamentals</h4>
+                                <p>Due: November 5, 2023</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="statistics" class="tab-content">
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <h3>Attendance Rate</h3>
+                                <p class="stat-number">95%</p>
+                                <p class="stat-change">+2% from last week</p>
+                            </div>
+                            <div class="stat-card">
+                                <h3>Assignment Completion</h3>
+                                <p class="stat-number">88%</p>
+                                <p class="stat-change">+5% from last assignment</p>
+                            </div>
+                            <div class="stat-card">
+                                <h3>Average Quiz Score</h3>
+                                <p class="stat-number">85%</p>
+                                <p class="stat-change">+3% from last quiz</p>
+                            </div>
+                            <div class="stat-card">
+                                <h3>Class Participation</h3>
+                                <p class="stat-number">78%</p>
+                                <p class="stat-change">+1% this week</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../js/main/pages.js"></script>
+    <script src="../../js/main/dark-theme.js"></script>
+    <script src="../../js/main/classroom-join.js"></script>
+    <script src="../../js/main/classroom-history.js"></script>
+    <script src="../../js/main/view-classroom.js"></script>
+    <!--
+    <script>
+        // Initialize performance chart
+        const ctx = document.getElementById('performanceChart').getContext('2d');
+        const performanceChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5'],
+                datasets: [{
+                    label: 'Class Average',
+                    data: [75, 82, 88, 85, 90],
+                    borderColor: '#4CAF50',
+                    tension: 0.4,
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Weekly Performance Trend'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        min: 70,
+                        max: 100
+                    }
+                }
+            }
+        });
+    </script>
+    -->
+</body>
+</html> 

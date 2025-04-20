@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snitch - Create Classroom</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/main/dashboard.css">
+    <link rel="stylesheet" href="../../css/main/pages.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="../../images/logo.png" alt="Snitch Logo">
+                <h2>Snitch</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <a href="dashboard.html">
+                            <i class="fas fa-home"></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li>
+                        <a href="profile.html">
+                            <i class="fas fa-user"></i>
+                            Profile
+                        </a>
+                    </li>
+                    <li>
+                        <a href="classroom.html" class="active">
+                            <i class="fas fa-chalkboard"></i>
+                            Classroom
+                        </a>
+                    </li>
+                    <li>
+                        <a href="settings.html">
+                            <i class="fas fa-cog"></i>
+                            Settings
+                        </a>
+                    </li>
+                    <li>
+                        <a href="help.html">
+                            <i class="fas fa-question-circle"></i>
+                            Help
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="login.html" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search...">
+                </div>
+                <div class="user-profile">
+                    <div class="notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </div>
+                    <div class="profile-dropdown">
+                        <img src="../../images/default-profile.jpg" alt="Profile" class="profile-img">
+                        <span class="username">John Doe</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <div class="welcome-section">
+                    <h1>Create New Classroom</h1>
+                    <p>Set up your new classroom and invite students</p>
+                </div>
+                <div class="create-classroom-form">
+                    <form id="classroom-form">
+                        <div class="form-group">
+                            <label for="class-image">Class Image</label>
+                            <div class="image-upload-container">
+                                <div class="image-preview" id="image-preview">
+                                    <img id="preview-image" src="../../files/images/summer-anime-girl-cat-4k-wallpaper-uhdpaper.com-414@5@d.jpg" alt="Class Preview">
+                                    <div class="upload-overlay">
+                                        <i class="fas fa-camera"></i>
+                                        <span>Click to upload</span>
+                                    </div>
+                                </div>
+                                <input type="file" id="class-image" name="class-image" accept="image/*" style="display: none;">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="class-name">Class Name</label>
+                            <input type="text" id="class-name" name="class-name" placeholder="e.g., Introduction to Programming" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="class-section">Section</label>
+                            <input type="text" id="class-section" name="class-section" placeholder="e.g., 1-A" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea id="description" name="description" rows="4" placeholder="Enter a brief description of the class..."></textarea>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="button" class="cancel-btn" onclick="window.location.href='classroom.html'">
+                                <i class="fas fa-times"></i> Cancel
+                            </button>
+                            <button type="submit" class="create-btn">
+                                <i class="fas fa-plus"></i> Create Classroom
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../js/main/pages.js"></script>
+    <script src="../../js/main/create-classroom.js"></script>
+</body>
+</html> 

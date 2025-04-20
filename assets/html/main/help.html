@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snitch - Help</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/main/dashboard.css">
+    <link rel="stylesheet" href="../../css/main/pages.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="../../files/icons/Teacher.png" alt="Snitch Logo">
+                <h2>Snitch</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <a href="dashboard.html">
+                            <i class="fas fa-home"></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li>
+                        <a href="profile.html">
+                            <i class="fas fa-user"></i>
+                            Profile
+                        </a>
+                    </li>
+                    <li>
+                        <a href="classroom.html">
+                            <i class="fas fa-chalkboard"></i>
+                            Classroom
+                        </a>
+                    </li>
+                    <li>
+                        <a href="settings.html">
+                            <i class="fas fa-cog"></i>
+                            Settings
+                        </a>
+                    </li>
+                    <li>
+                        <a href="help.html" class="active">
+                            <i class="fas fa-question-circle"></i>
+                            Help
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="login.html" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search help topics...">
+                </div>
+                <div class="user-profile">
+                    <div class="notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </div>
+                    <div class="profile-dropdown">
+                        <img src="../../images/default-profile.jpg" alt="Profile" class="profile-img">
+                        <span class="username">John Doe</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <div class="welcome-section">
+                    <h1>Help Center</h1>
+                    <p>Find answers to common questions</p>
+                </div>
+                <div class="help-content">
+                    <div class="help-card">
+                        <h3>Getting Started</h3>
+                        <div class="faq-list">
+                            <div class="faq-item">
+                                <h4>How do I create a new classroom?</h4>
+                                <p>Go to the Classroom section and click the "Create New Classroom" button. Fill in the required information and click "Create".</p>
+                            </div>
+                            <div class="faq-item">
+                                <h4>How can I reset my password?</h4>
+                                <p>Visit the Settings page and click on "Change Password" under Security settings. Follow the instructions to set a new password.</p>
+                            </div>
+                            <div class="faq-item">
+                                <h4>How do I invite students to my class?</h4>
+                                <p>In the Classroom section, click on your class and use the "Invite Students" button to share the class code or send email invitations.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="help-card">
+                        <h3>Account Management</h3>
+                        <div class="faq-list">
+                            <div class="faq-item">
+                                <h4>How do I update my profile information?</h4>
+                                <p>Go to the Profile section and click the "Edit Profile" button. Make your changes and click "Save".</p>
+                            </div>
+                            <div class="faq-item">
+                                <h4>How can I enable two-factor authentication?</h4>
+                                <p>In the Settings page, go to Security settings and toggle the "Two-Factor Authentication" switch.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="help-card">
+                        <h3>Classroom Features</h3>
+                        <div class="faq-list">
+                            <div class="faq-item">
+                                <h4>How do I create assignments?</h4>
+                                <p>In your classroom, click on the "Assignments" tab and use the "Create Assignment" button to set up a new task.</p>
+                            </div>
+                            <div class="faq-item">
+                                <h4>How can I track student progress?</h4>
+                                <p>Use the "Analytics" tab in your classroom to view detailed reports on student performance and engagement.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="help-card">
+                        <h3>Need More Help?</h3>
+                        <div class="contact-support">
+                            <p>Can't find what you're looking for? Contact our support team:</p>
+                            <div class="support-options">
+                                <button class="support-btn">
+                                    <i class="fas fa-envelope"></i> Email Support
+                                </button>
+                                <button class="support-btn">
+                                    <i class="fas fa-comments"></i> Live Chat
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../js/main/pages.js"></script>
+</body>
+</html> 

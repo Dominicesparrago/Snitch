@@ -1,0 +1,910 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #252525;
+    color: #ffffff;
+}
+
+/* Fullscreen Loading Screen */
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease;
+}
+
+/* Terminal Loader */
+@keyframes blinkCursor {
+    50% {
+        border-right-color: transparent;
+    }
+}
+
+@keyframes typeAndDelete {
+    0%, 10% {
+        width: 0;
+    }
+    45%, 55% {
+        width: 6.2em;
+    }
+    90%, 100% {
+        width: 0;
+    }
+}
+
+.terminal-loader {
+    border: 0.1em solid #333;
+    background-color: #1a1a1a;
+    color: #0f0;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 1em;
+    padding: 1.5em 1em;
+    width: 12em;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.terminal-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1.5em;
+    background-color: #333;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    padding: 0 0.4em;
+    box-sizing: border-box;
+}
+
+.terminal-controls {
+    float: right;
+}
+
+.control {
+    display: inline-block;
+    width: 0.6em;
+    height: 0.6em;
+    margin-left: 0.4em;
+    border-radius: 50%;
+    background-color: #777;
+}
+
+.control.close {
+    background-color: #e33;
+}
+
+.control.minimize {
+    background-color: #ee0;
+}
+
+.control.maximize {
+    background-color: #0b0;
+}
+
+.terminal-title {
+    float: left;
+    line-height: 1.5em;
+    color: #eee;
+}
+
+.terminal-text {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 0.2em solid green;
+    animation: typeAndDelete 4s steps(11) infinite, blinkCursor 0.5s step-end infinite alternate;
+    margin-top: 1.5em;
+}
+
+/* Loader Animation */
+.loader {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(255, 255, 255, 0.3);
+    border-top: 5px solid #4caf50;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 15px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Ensure main content is hidden initially */
+#main-content {
+    display: none;
+    opacity: 0;
+    transition: opacity 1s ease-in;
+}
+
+.content {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* Sidebar UI */
+
+.sidebar {
+    background-color: rgb(32, 32, 32);
+    min-width: 230px;
+    min-height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 20px;
+}
+
+.sidebar .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.iconsSidebar {
+    max-width: 20px;
+    max-height: 20px;
+    transform: scale(1.1);
+    object-fit: cover;
+}
+
+.title-sidebar {
+    font-family: 'LEMONMILK-Regular';
+    font-size: 2em;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 17px;
+    padding: 5px 25px 5px 25px;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 25px;
+    margin-bottom: 5px;
+    transition: transform 100ms ease-in-out;
+}
+
+.nav-item:hover {
+    background-color: #444444;
+    transform: scale(1.07);
+}
+
+.nav-item.active {
+    background-color: #838383;
+}
+
+.nav-item span {
+    font-family: 'CreatoDisplay-Regular';
+    font-size: 1.07rem;
+}
+
+/* Main-content */
+
+.main-content {
+    margin-left: 230px;
+    padding: 20px 20px 20px 20px;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+.main-content-home::-webkit-scrollbar {
+    display: none;
+}
+
+.head-title {
+    margin-top: 1vh;
+    font-family: 'LEMONMILK-Regular';
+}
+
+/* Home page UI */
+
+.scroll-grid {
+    display: flex;
+    gap: 0px;
+    overflow-x: auto;
+    padding: 10px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.4) transparent;
+}
+
+.scroll-grid::-webkit-scrollbar {
+    height: 8px;
+}
+
+.scroll-grid::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 10px;
+}
+
+.scroll-grid::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.class-grid {
+    padding: 5px;
+    display: flex;
+    gap: 15px;
+}
+
+.class-card {
+    min-height: 350px;
+    min-width: 450px;
+    max-height: 350px;
+    max-width: 450px;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.class-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.class-card:active {
+    transform: scale(0.98);
+}
+
+.class-card .image-class {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    object-fit: cover;
+    position: absolute;
+    z-index: 0;
+    transition: transform ease-in-out 200ms;
+}
+
+.class-card:hover .image-class {
+    transform: scale(1.07);
+}
+
+.class-card-header{
+    background-color: #23242400;
+    padding: 0;
+    position: relative;
+    z-index: 2;
+}
+
+.class-info-background {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 90%);
+    padding: 15px;
+    border-radius: 8px;
+
+}
+
+.class-subject, .class-section, .class-activities {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.class-subject {
+    font-size: 1.5em;
+    text-shadow: 0px 0px 5px rgba(0, 0, 0, 1);
+    font-family: 'LEMONMILK-Regular', sans-serif;
+}
+
+.class-section {
+    font-size: 1.3em;
+    margin-top: 250px;
+    font-family: 'CreatoDisplay-Regular', sans-serif;
+}
+
+.class-activities {
+    color: #cccccc;
+    font-size: 0.9em;
+    margin-top: 2px;
+    font-family: 'CreatoDisplay-Regular', sans-serif;
+}
+
+/* Home lower bracket */
+
+.home-lower-bracket {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    margin-top: 40px;
+    width: 100%;
+    height: 550px;
+    border-radius: 12px;
+}
+
+/* Notes UI */
+
+.home-notes {
+    width: 68vw;
+    height: 550px;
+    background: linear-gradient(180deg, rgba(34,34,34,1) 10%, rgba(66,66,66,1) 70%);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+}
+
+.home-notes-title {
+    border-top-left-radius: 9px;
+    border-top-right-radius: 9px;
+    text-align: center;
+    font-family: 'LEMONMILK-Regular';
+    font-size: 1.3em;
+    padding: 12px;
+    background: rgba(34,34,34,0.9);
+}
+
+.notes-container {
+    display: flex;
+    height: calc(100% - 50px);
+    gap: 1px;
+    background: rgba(255,255,255,0.1);
+}
+
+.notes-sidebar {
+    width: 250px;
+    background: rgba(34,34,34,0.9);
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.add-note-btn {
+    background: var(--primary-color, #4caf50);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background-color 0.3s;
+}
+
+.add-note-btn:hover {
+    background: #388e3c;
+}
+
+.plus-icon {
+    font-style: normal;
+    font-size: 18px;
+}
+
+.notes-list {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.note-item {
+    padding: 10px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.note-item:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+.note-item.active {
+    background: rgba(76, 175, 80, 0.3);
+    border-left: 3px solid #4caf50;
+}
+
+.note-item-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.note-item-date {
+    font-size: 0.8em;
+    color: #aaa;
+}
+
+.notes-content {
+    flex: 1;
+    background: rgba(34,34,34,0.9);
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+}
+
+.note-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    gap: 15px;
+}
+
+.note-title-input {
+    flex: 1;
+    background: rgba(255,255,255,0.1);
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    color: white;
+    font-size: 1.1em;
+}
+
+.note-title-input:focus {
+    outline: none;
+    background: rgba(255,255,255,0.15);
+}
+
+.note-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.save-note-btn,
+.delete-note-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.save-note-btn {
+    background: #4caf50;
+    color: white;
+}
+
+.save-note-btn:hover {
+    background: #388e3c;
+}
+
+.delete-note-btn {
+    background: #f44336;
+    color: white;
+}
+
+.delete-note-btn:hover {
+    background: #d32f2f;
+}
+
+.note-content-area {
+    flex: 1;
+    background: rgba(255,255,255,0.1);
+    border: none;
+    border-radius: 4px;
+    padding: 15px;
+    color: white;
+    font-size: 1em;
+    line-height: 1.5;
+    resize: none;
+}
+
+.note-content-area:focus {
+    outline: none;
+    background: rgba(255,255,255,0.15);
+}
+
+/* Scrollbar styling for notes */
+.notes-list::-webkit-scrollbar,
+.note-content-area::-webkit-scrollbar {
+    width: 8px;
+}
+
+.notes-list::-webkit-scrollbar-track,
+.note-content-area::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.1);
+}
+
+.notes-list::-webkit-scrollbar-thumb,
+.note-content-area::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.3);
+    border-radius: 4px;
+}
+
+.notes-list::-webkit-scrollbar-thumb:hover,
+.note-content-area::-webkit-scrollbar-thumb:hover {
+    background: rgba(255,255,255,0.4);
+}
+
+/* Announcement UI */
+
+.announcement {
+    width: 32vw;
+    height: 550px;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(180deg, rgba(34,34,34,1) 10%, rgb(206, 206, 206) 70%);
+    border-radius: 12px;
+}
+
+.announcement-title {
+    border-top-left-radius: 9px;
+    border-top-right-radius: 9px;
+    text-align: center;
+    font-family: 'LEMONMILK-Regular';
+    font-size: 1.3em;
+    padding: 12px;
+    background: linear-gradient(180deg, rgba(34,34,34,1) 10%, rgba(255, 255, 255, 0) 70%);
+    position: relative;
+    z-index: 1;
+    height: 60px; /* Adjusted height */
+}
+
+.announcement-box {
+    width: 100%;
+    height: 490px;
+    padding: 10px;
+    display: grid;
+    gap: 10px;
+    overflow-y: auto;
+    scrollbar-width: none; /* Hides scrollbar */
+    position: relative;
+}
+
+.announcement-box::-webkit-scrollbar {
+    display: none;
+}
+
+/* Profile page UI */
+
+.profile-bracket {
+    margin-top: 40px;
+    overflow-x: auto;
+    display: flex;
+    gap: 50px;
+    padding: 20px
+}
+
+.profile-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid white;
+}
+
+.profile-body {
+    align-items: top;
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: flex-start;
+
+}
+
+.profile-name {
+    font-family: 'LEMONMILK-Regular';
+    font-size: 1.5em;
+}
+
+.profile-bio {
+    font-family: 'CreatoDisplay-Regular';
+    font-size: 1em;
+}
+
+.profile-school {
+    font-family: 'CreatoDisplay-Regular';
+    font-size: 1em;
+}
+
+/* Classroom UI */
+
+.classroom-bracket {
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(29, 29, 29);
+    padding: 20px;
+    border-radius: 15px;
+    gap: 20px;
+}
+
+.classroom-class, .classroom-info {
+    background-color: rgb(51, 51, 51);
+    border-radius: 15px;
+}
+
+.classroom-class {
+    width: 25vw;
+    height: 70vh;
+}
+
+.classroom-info {
+    width: 65vw;
+    height: 70vh;
+    flex-direction: column;
+    display: flex;
+}
+
+.classroom-title {
+    text-align: center;
+    font-family: 'LEMONMILK-Regular';
+    font-size: 1.25em;
+    background-color: rgb(43, 43, 43);
+    border-radius: 15px;
+    padding: 10px;
+}
+
+.subject-item {
+    padding: 8px;
+    margin: 5px 5px 5px 5px;
+    background-color: rgb(80, 80, 80);
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    font-size: 0.95em;
+}
+
+.subject-item:hover {
+    background-color: rgb(100, 100, 100);
+}
+
+.subject-scores {
+    padding: 8px;
+    background-color: rgb(80, 80, 80);
+    margin: 8px;
+    border-radius: 12px;
+    height: 100%;
+    
+}
+
+.scores {
+    font-size: 0.95em;
+}
+
+.subject-scores-column {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    
+    background-color: gray;
+    border-radius: 8px;
+}
+
+.subject-user-bracket {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: space-between;
+    padding: 8px;
+}
+
+.subject-user-bracket p {
+    font-size: 1.2em;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Settings UI */
+
+.settings-page {
+    display: none;
+    background-color: #2b2b2b;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%;
+    margin: 20px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.head-title {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.setting-option {
+    background-color: #3b3b3b;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.3s ease;
+}
+
+.setting-option:hover {
+    background-color: #505050;
+}
+
+.setting-option h3 {
+    margin-right: 70px;
+    font-size: 1.2em;
+}
+
+.setting-option p {
+    font-size: 0.95em;
+    color: #d3d3d3;
+    flex-grow: 2;
+}
+
+/* Toggle Switch */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 20px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 14px;
+    width: 14px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #4caf50;
+}
+
+input:checked + .slider:before {
+    transform: translateX(20px);
+}
+
+/* Check Button */
+.check-button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background 0.3s;
+}
+
+.check-button:hover {
+    background-color: #388e3c;
+}
+
+/* Help UI */
+
+#help-page {
+    display: none;
+    background-color: #2b2b2b;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 600px;
+    margin: 20px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.head-title {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.help-container h2 {
+    font-size: 1.5em;
+    margin-top: 20px;
+    color: #4caf50;
+}
+
+.faq-item {
+    background-color: #3b3b3b;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.help-button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background 0.3s;
+}
+
+.help-button:hover {
+    background-color: #388e3c;
+}
+
+.report {
+    display: block;
+    margin: 15px auto;
+    width: 100%;
+    text-align: center;
+}
+
+.email-list {
+    list-style: none;
+    padding: 0;
+}
+
+.email-list li {
+    margin: 5px 0;
+}
+
+.email-list a {
+    color: #4caf50;
+    text-decoration: none;
+}
+
+.email-list a:hover {
+    text-decoration: underline;
+}
+
+/* Font-face */
+
+@font-face {
+    font-family: 'CreatoDisplay-Regular';
+    src: url(../assets/fonts/CreatoDisplay-Regular.woff2) format('woff2');
+    font-size: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'LEMONMILK-Regular';
+    src: url(../assets/fonts/LEMONMILK-Regular.woff2) format('woff2');
+    font-size: normal;
+    font-weight: normal;
+}

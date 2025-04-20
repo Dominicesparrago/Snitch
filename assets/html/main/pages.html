@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snitch - Pages</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/main/dashboard.css">
+    <link rel="stylesheet" href="../../css/main/pages.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="../../images/logo.png" alt="Snitch Logo">
+                <h2>Snitch</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <a href="../main/dashboard.html">
+                            <i class="fas fa-home"></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="active">
+                            <i class="fas fa-user"></i>
+                            Profile
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-chalkboard"></i>
+                            Classroom
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-cog"></i>
+                            Settings
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-question-circle"></i>
+                            Help
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="../main/login.html" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search...">
+                </div>
+                <div class="user-profile">
+                    <div class="notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </div>
+                    <div class="profile-dropdown">
+                        <img src="../../images/default-profile.jpg" alt="Profile" class="profile-img">
+                        <span class="username">John Doe</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <!-- Profile Section -->
+                <section class="page-section" id="profile-section">
+                    <div class="welcome-section">
+                        <h1>Profile Settings</h1>
+                        <p>Manage your account information and preferences</p>
+                    </div>
+                    <div class="profile-content">
+                        <div class="profile-card">
+                            <div class="profile-header">
+                                <img src="../../images/default-profile.jpg" alt="Profile" class="profile-large">
+                                <div class="profile-info">
+                                    <h2>John Doe</h2>
+                                    <p>Teacher</p>
+                                    <button class="edit-profile-btn">
+                                        <i class="fas fa-edit"></i> Edit Profile
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="profile-details">
+                                <div class="detail-item">
+                                    <label>Email</label>
+                                    <p>john.doe@example.com</p>
+                                </div>
+                                <div class="detail-item">
+                                    <label>Phone</label>
+                                    <p>+1 234 567 890</p>
+                                </div>
+                                <div class="detail-item">
+                                    <label>Department</label>
+                                    <p>Computer Science</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Classroom Section -->
+                <section class="page-section" id="classroom-section" style="display: none;">
+                    <div class="welcome-section">
+                        <h1>My Classrooms</h1>
+                        <p>Manage your classrooms and students</p>
+                    </div>
+                    <div class="classroom-grid">
+                        <div class="classroom-card">
+                            <div class="classroom-header">
+                                <h3>Introduction to Programming</h3>
+                                <span class="class-code">CS101</span>
+                            </div>
+                            <div class="classroom-stats">
+                                <div class="stat">
+                                    <i class="fas fa-users"></i>
+                                    <span>25 Students</span>
+                                </div>
+                                <div class="stat">
+                                    <i class="fas fa-tasks"></i>
+                                    <span>5 Assignments</span>
+                                </div>
+                            </div>
+                            <button class="view-class-btn">View Class</button>
+                        </div>
+                        <!-- Add more classroom cards as needed -->
+                    </div>
+                </section>
+
+                <!-- Settings Section -->
+                <section class="page-section" id="settings-section" style="display: none;">
+                    <div class="welcome-section">
+                        <h1>Settings</h1>
+                        <p>Customize your experience</p>
+                    </div>
+                    <div class="settings-content">
+                        <div class="settings-card">
+                            <h3>Account Settings</h3>
+                            <div class="settings-group">
+                                <div class="setting-item">
+                                    <label>Email Notifications</label>
+                                    <div class="toggle-switch">
+                                        <input type="checkbox" id="email-notifications" checked>
+                                        <label for="email-notifications"></label>
+                                    </div>
+                                </div>
+                                <div class="setting-item">
+                                    <label>Dark Mode</label>
+                                    <div class="toggle-switch">
+                                        <input type="checkbox" id="dark-mode" checked>
+                                        <label for="dark-mode"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Help Section -->
+                <section class="page-section" id="help-section" style="display: none;">
+                    <div class="welcome-section">
+                        <h1>Help Center</h1>
+                        <p>Find answers to common questions</p>
+                    </div>
+                    <div class="help-content">
+                        <div class="help-card">
+                            <h3>Frequently Asked Questions</h3>
+                            <div class="faq-list">
+                                <div class="faq-item">
+                                    <h4>How do I create a new classroom?</h4>
+                                    <p>Go to the Classroom section and click the "Create New Classroom" button.</p>
+                                </div>
+                                <div class="faq-item">
+                                    <h4>How can I reset my password?</h4>
+                                    <p>Visit the Settings page and click on "Change Password" under Account Settings.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../js/main/pages.js"></script>
+</body>
+</html> 

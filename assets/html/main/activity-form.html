@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snitch - Activity Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/main/dashboard.css">
+    <style>
+        :root {
+            --primary-color: #6c5ce7;
+            --primary-light: #a29bfe;
+            --accent-color: #00cec9;
+            --text-color: #f1f1f1;
+            --text-secondary: #dfe6e9;
+            --bg-dark: #2d3436;
+            --bg-darker: #1e272e;
+            --bg-card: #34495e;
+            --success-color: #00b894;
+            --warning-color: #fdcb6e;
+            --error-color: #ff7675;
+        }
+
+        body {
+            background-color: var(--bg-darker);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar dark theme override */
+        .sidebar {
+            background-color: var(--bg-dark);
+            border-right: 1px solid #4b6584;
+        }
+
+        .sidebar-header h2, .sidebar-nav a {
+            color: var(--text-color);
+        }
+
+        .sidebar-nav a:hover, .sidebar-nav a.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .sidebar-footer a {
+            color: var(--text-secondary);
+        }
+
+        /* Main content dark theme */
+        .main-content {
+            background-color: var(--bg-darker);
+            flex: 1;
+        }
+
+        .main-header {
+            background-color: var(--bg-dark);
+            border-bottom: 1px solid #4b6584;
+            color: var(--text-color);
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 30px auto;
+            background-color: var(--bg-dark);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .form-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .form-header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+        }
+
+        .form-header p {
+            margin: 10px 0 0;
+            opacity: 0.9;
+        }
+
+        .form-info {
+            display: flex;
+            justify-content: space-between;
+            background-color: rgba(0, 0, 0, 0.1);
+            padding: 12px 30px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .form-info span {
+            display: flex;
+            align-items: center;
+        }
+
+        .form-info i {
+            margin-right: 8px;
+        }
+
+        .form-body {
+            padding: 30px;
+        }
+
+        .form-description {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .question {
+            background-color: var(--bg-card);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .question:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+
+        .question-required {
+            font-size: 0.8rem;
+            color: var(--error-color);
+            margin-left: 8px;
+        }
+
+        .options-container {
+            margin-top: 15px;
+        }
+
+        .radio-option, .checkbox-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            cursor: pointer;
+            padding: 10px 15px;
+            border-radius: 5px;
+            background-color: rgba(0, 0, 0, 0.2);
+            transition: background-color 0.2s;
+        }
+
+        .radio-option:hover, .checkbox-option:hover {
+            background-color: rgba(108, 92, 231, 0.1);
+        }
+
+        .radio-option input, .checkbox-option input {
+            margin-right: 12px;
+            accent-color: var(--primary-color);
+            width: 18px;
+            height: 18px;
+        }
+
+        .text-answer {
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            padding: 12px 15px;
+            color: var(--text-color);
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .text-answer:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 2px rgba(162, 155, 254, 0.3);
+        }
+
+        .short-answer {
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            padding: 12px 15px;
+            color: var(--text-color);
+            font-size: 1rem;
+        }
+
+        .short-answer:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 2px rgba(162, 155, 254, 0.3);
+        }
+
+        .form-footer {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 30px;
+            background-color: rgba(0, 0, 0, 0.15);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #8067e7;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(108, 92, 231, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .form-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .form-progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+        }
+
+        .back-link {
+            padding: 20px 30px;
+        }
+
+        .back-link a {
+            color: var(--primary-light);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .back-link a i {
+            margin-right: 8px;
+        }
+
+        .back-link a:hover {
+            color: var(--text-color);
+        }
+
+        .submitted-container {
+            text-align: center;
+            padding: 80px 30px;
+            display: none;
+        }
+
+        .submitted-container i {
+            font-size: 80px;
+            color: var(--success-color);
+            margin-bottom: 20px;
+        }
+
+        .submitted-container h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--text-color);
+        }
+
+        .submitted-container p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-progress-container">
+        <div class="form-progress" id="formProgress" style="width: 0;"></div>
+    </div>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="../../images/logo.png" alt="Snitch Logo">
+                <h2>Snitch</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <a href="dashboard.html">
+                            <i class="fas fa-home"></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li>
+                        <a href="profile.html">
+                            <i class="fas fa-user"></i>
+                            Profile
+                        </a>
+                    </li>
+                    <li>
+                        <a href="student-classroom.html" class="active">
+                            <i class="fas fa-chalkboard"></i>
+                            Classroom
+                        </a>
+                    </li>
+                    <li>
+                        <a href="settings.html">
+                            <i class="fas fa-cog"></i>
+                            Settings
+                        </a>
+                    </li>
+                    <li>
+                        <a href="help.html">
+                            <i class="fas fa-question-circle"></i>
+                            Help
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="../auth/login.html" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="main-header">
+                <div class="header-left">
+                    <button class="menu-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1>Activity Form</h1>
+                </div>
+                <div class="header-right">
+                    <div class="user-info">
+                        <span class="username">Student Name</span>
+                        <span class="role">Student</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="back-link">
+                <a href="student-view-class.html" id="backToClassLink">
+                    <i class="fas fa-arrow-left"></i> Back to Classroom
+                </a>
+            </div>
+
+            <div class="form-container" id="formContainer">
+                <div class="form-header">
+                    <h1 id="activityTitle">Loading Activity...</h1>
+                    <p id="activityDescription">Please wait while we load the activity details.</p>
+                </div>
+                
+                <div class="form-info">
+                    <span><i class="fas fa-calendar-alt"></i> <span id="activityDueDate">Due: N/A</span></span>
+                    <span><i class="fas fa-trophy"></i> <span id="activityMaxScore">Points: 0</span></span>
+                </div>
+                
+                <form id="activityForm" class="form-body">
+                    <!-- Questions will be loaded here dynamically -->
+                </form>
+                
+                <div class="form-footer">
+                    <button type="button" class="btn btn-secondary" id="saveProgressBtn">Save Progress</button>
+                    <button type="button" class="btn btn-primary" id="submitFormBtn">Submit</button>
+                </div>
+            </div>
+            
+            <div class="submitted-container" id="submittedContainer">
+                <i class="fas fa-check-circle"></i>
+                <h2>Activity Submitted!</h2>
+                <p>Your responses have been successfully recorded.</p>
+                <a href="student-view-class.html" class="btn btn-primary" id="goBackBtn">
+                    Return to Classroom
+                </a>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../js/main/activity-form.js"></script>
+    <script>
+        // Simple demo functionality for the form progress bar
+        document.addEventListener('DOMContentLoaded', function() {
+            const questions = document.querySelectorAll('.question');
+            const progressBar = document.getElementById('formProgress');
+            const form = document.getElementById('activityForm');
+            const submitBtn = document.getElementById('submitFormBtn');
+            const formContainer = document.getElementById('formContainer');
+            const submittedContainer = document.getElementById('submittedContainer');
+            
+            function updateProgress() {
+                const totalQuestions = questions.length;
+                let answeredQuestions = 0;
+                
+                questions.forEach(question => {
+                    const inputs = question.querySelectorAll('input, textarea');
+                    let isAnswered = false;
+                    
+                    inputs.forEach(input => {
+                        if ((input.type === 'radio' || input.type === 'checkbox') && input.checked) {
+                            isAnswered = true;
+                        } else if ((input.type === 'text' || input.tagName === 'TEXTAREA') && input.value.trim() !== '') {
+                            isAnswered = true;
+                        }
+                    });
+                    
+                    if (isAnswered) {
+                        answeredQuestions++;
+                        question.classList.add('answered');
+                    } else {
+                        question.classList.remove('answered');
+                    }
+                });
+                
+                const progressPercent = totalQuestions > 0 ? (answeredQuestions / totalQuestions) * 100 : 0;
+                progressBar.style.width = `${progressPercent}%`;
+            }
+            
+            // Add event listeners to all inputs to update progress
+            form.addEventListener('input', updateProgress);
+            
+            // Demo submit functionality
+            submitBtn.addEventListener('click', function() {
+                formContainer.style.display = 'none';
+                submittedContainer.style.display = 'block';
+            });
+            
+            // Initialize with some demo data
+            document.getElementById('activityTitle').textContent = 'Introduction to Programming: Week 1 Quiz';
+            document.getElementById('activityDescription').textContent = 'This quiz tests your understanding of basic programming concepts covered in the first week.';
+            document.getElementById('activityDueDate').textContent = 'Due: October 30, 2023, 11:59 PM';
+            document.getElementById('activityMaxScore').textContent = 'Points: 100';
+            
+            // Load demo questions
+            const demoQuestions = [
+                {
+                    type: 'multiple_choice',
+                    text: 'What does HTML stand for?',
+                    required: true,
+                    options: [
+                        'Hyper Text Markup Language',
+                        'High Tech Multi Language',
+                        'Hyper Transfer Markup Language',
+                        'Home Tool Markup Language'
+                    ]
+                },
+                {
+                    type: 'multiple_choice',
+                    text: 'Which of the following is NOT a programming language?',
+                    required: true,
+                    options: [
+                        'Java',
+                        'Python',
+                        'HTML',
+                        'C++'
+                    ]
+                },
+                {
+                    type: 'checkbox',
+                    text: 'Select all valid HTML tags from the options below:',
+                    required: true,
+                    options: [
+                        '<div>',
+                        '<section>',
+                        '<paragraph>',
+                        '<header>'
+                    ]
+                },
+                {
+                    type: 'text',
+                    text: 'Write a short paragraph explaining the difference between HTML, CSS, and JavaScript.',
+                    required: true
+                },
+                {
+                    type: 'short_answer',
+                    text: 'What does CSS stand for?',
+                    required: true
+                }
+            ];
+            
+            // Generate the form from demo questions
+            const questionsContainer = document.getElementById('activityForm');
+            demoQuestions.forEach((question, index) => {
+                const questionElement = document.createElement('div');
+                questionElement.className = 'question';
+                
+                // Question text
+                const questionText = document.createElement('div');
+                questionText.className = 'question-text';
+                questionText.innerHTML = `${index + 1}. ${question.text}`;
+                
+                if (question.required) {
+                    const requiredSpan = document.createElement('span');
+                    requiredSpan.className = 'question-required';
+                    requiredSpan.innerHTML = '(Required)';
+                    questionText.appendChild(requiredSpan);
+                }
+                
+                questionElement.appendChild(questionText);
+                
+                // Options based on question type
+                const optionsContainer = document.createElement('div');
+                optionsContainer.className = 'options-container';
+                
+                if (question.type === 'multiple_choice') {
+                    question.options.forEach((option, optionIndex) => {
+                        const optionElement = document.createElement('label');
+                        optionElement.className = 'radio-option';
+                        
+                        const input = document.createElement('input');
+                        input.type = 'radio';
+                        input.name = `question_${index}`;
+                        input.value = optionIndex;
+                        
+                        optionElement.appendChild(input);
+                        optionElement.appendChild(document.createTextNode(option));
+                        optionsContainer.appendChild(optionElement);
+                    });
+                } else if (question.type === 'checkbox') {
+                    question.options.forEach((option, optionIndex) => {
+                        const optionElement = document.createElement('label');
+                        optionElement.className = 'checkbox-option';
+                        
+                        const input = document.createElement('input');
+                        input.type = 'checkbox';
+                        input.name = `question_${index}_option_${optionIndex}`;
+                        input.value = optionIndex;
+                        
+                        optionElement.appendChild(input);
+                        optionElement.appendChild(document.createTextNode(option));
+                        optionsContainer.appendChild(optionElement);
+                    });
+                } else if (question.type === 'text') {
+                    const textarea = document.createElement('textarea');
+                    textarea.className = 'text-answer';
+                    textarea.name = `question_${index}`;
+                    textarea.placeholder = 'Type your answer here...';
+                    optionsContainer.appendChild(textarea);
+                } else if (question.type === 'short_answer') {
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.className = 'short-answer';
+                    input.name = `question_${index}`;
+                    input.placeholder = 'Type your answer here...';
+                    optionsContainer.appendChild(input);
+                }
+                
+                questionElement.appendChild(optionsContainer);
+                questionsContainer.appendChild(questionElement);
+            });
+            
+            // Initial progress update
+            updateProgress();
+        });
+    </script>
+</body>
+</html> 

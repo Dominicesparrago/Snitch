@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snitch - Student Classrooms</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/main/dashboard.css">
+    <link rel="stylesheet" href="../../css/main/pages.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="../../files/icons/Teacher.png" alt="Snitch Logo">
+                <h2>Snitch</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <a href="student-dashboard.html">
+                            <i class="fas fa-home"></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li>
+                        <a href="student-profile.html">
+                            <i class="fas fa-user"></i>
+                            Profile
+                        </a>
+                    </li>
+                    <li>
+                        <a href="student-classroom.html" class="active">
+                            <i class="fas fa-chalkboard"></i>
+                            Classrooms
+                        </a>
+                    </li>
+                    <li>
+                        <a href="student-assignments.html">
+                            <i class="fas fa-tasks"></i>
+                            Assignments
+                        </a>
+                    </li>
+                    <li>
+                        <a href="student-settings.html">
+                            <i class="fas fa-cog"></i>
+                            Settings
+                        </a>
+                    </li>
+                    <li>
+                        <a href="help.html">
+                            <i class="fas fa-question-circle"></i>
+                            Help
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="login.html" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search classrooms...">
+                </div>
+                <div class="user-profile">
+                    <div class="notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </div>
+                    <div class="profile-dropdown">
+                        <img src="../../files/images/default-imageprofile.jpg" alt="Profile" class="profile-img">
+                        <span class="username">Student Name</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <div class="welcome-section">
+                    <h1>My Classrooms</h1>
+                    <p>View your enrolled classes and assignments</p>
+                </div>
+
+                <!-- Tabs for My Classrooms and Join Classroom -->
+                <div class="classroom-tabs">
+                    <button class="tab-btn active" data-tab="my-classrooms">My Classrooms</button>
+                    <button class="tab-btn" data-tab="join-classroom">Join Classroom</button>
+                </div>
+
+                <!-- My Classrooms Tab Content -->
+                <div class="tab-content active" id="my-classrooms">
+                    <div class="classroom-grid" id="enrolledClassroomGrid">
+                        <!-- Classrooms will be dynamically loaded here -->
+                    </div>
+                </div>
+
+                <!-- Join Classroom Tab Content -->
+                <div class="tab-content" id="join-classroom">
+                    <div class="join-classroom-form">
+                        <form id="join-form">
+                            <div class="form-group">
+                                <label for="class-code">Enter Class Code</label>
+                                <input type="text" id="class-code" name="class-code" placeholder="Enter the class code provided by your teacher" required>
+                            </div>
+                            <button type="submit" class="join-btn">
+                                <i class="fas fa-sign-in-alt"></i> Join Classroom
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <div class="available-classrooms">
+                        <h2>Available Classrooms</h2>
+                        <div class="classroom-grid" id="availableClassroomGrid">
+                            <!-- Available classrooms will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../js/main/pages.js"></script>
+    <script src="../../js/main/student-classroom.js"></script>
+</body>
+</html> 

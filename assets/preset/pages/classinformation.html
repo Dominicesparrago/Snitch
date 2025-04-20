@@ -1,0 +1,47 @@
+<div class="classroom-info">
+    <p class="classroom-title">Information</p>
+    <div class="subject-scores">
+        <div class="subject-item" onclick="toggleScores('thesis')">
+            <h3>Thesis 1 & 2</h3>
+            <div class="scores" id="thesis-scores">
+                <p>Activities: 95</p>
+                <p>Quiz: 88</p>
+                <p>Exam: 92</p>
+            </div>
+        </div>
+
+        <div class="subject-item" onclick="toggleScores('dsa')">
+            <h3>Data Structure and Algorithm</h3>
+            <div class="scores" id="dsa-scores">
+                <p>Activities: 90</p>
+                <p>Quiz: 85</p>
+                <p>Exam: 88</p>
+            </div>
+        </div>
+
+        <div class="subject-item" onclick="toggleScores('programming')">
+            <h3>Fundamentals of Programming</h3>
+            <div class="scores" id="programming-scores">
+                <p>Activities: 92</p>
+                <p>Quiz: 87</p>
+                <p>Exam: 90</p>
+            </div>
+        </div>
+
+        <div class="subject-item" onclick="toggleScores('rizal')">
+            <h3>Life & Works of Rizal</h3>
+            <div class="scores" id="rizal-scores">
+                <p>Activities: 88</p>
+                <p>Quiz: 90</p>
+                <p>Exam: 85</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleScores(subjectId) {
+    const scoresElement = document.getElementById(subjectId + '-scores');
+    const currentDisplay = scoresElement.style.display;
+    scoresElement.style.display = currentDisplay === 'block' ? 'none' : 'block';
+}

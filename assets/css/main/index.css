@@ -1,0 +1,383 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+.loading-container {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    background-color: #000000;
+    z-index: 10;
+    animation: fadeOut 0.8s ease-in-out 3s forwards;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+.spinner {
+    background-image: linear-gradient(#d80000 35%,#0023e8);
+    width: 200px;
+    height: 200px;
+    animation: spinning82341 1.5s linear infinite;
+    text-align: center;
+    border-radius: 150px;
+    filter: blur(1px);
+    box-shadow: 0px -5px 20px 0px #d80000, 0px 5px 20px 0px #0023e8;
+}
+  
+.spinner1 {
+    background-color: rgb(2, 2, 2);
+    width: 200px;
+    height: 200px;
+    border-radius: 150px;
+    filter: blur(10px);
+}
+  
+@keyframes spinning82341 {
+    to {
+      transform: rotate(360deg);
+    }
+}
+
+.container {
+    width: 100vw;
+    height: 100vh;
+    background-color: #000000;
+    display: flex;
+    align-items: center;
+    justify-content: top;
+    flex-direction: column; 
+    overflow-y: auto;
+    scrollbar-width: none;
+    gap: 2%;
+}
+
+.container .welcome-title {
+    color: #ffffff;
+    font-size: 5em;
+    font-weight: 600;
+    text-align: center;
+    font-family: 'lemon-milk', sans-serif;
+    padding-top: 20px;
+}
+
+.container .welcome-subtitle {
+    transform: translateY(-30px);
+    color: #2e2e2e;
+    font-size: 1.7em;
+    font-weight: 400;
+    text-align: center;
+    font-family: 'coolvetica', sans-serif;
+    background: linear-gradient(90deg, #d80000, #0023e8, #d80000);
+    background-size: 200% auto;
+    color: #000;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 3s linear infinite;
+}
+
+@keyframes shine {
+    to {
+        background-position: 200% center;
+    }
+}
+
+
+.insights-images {
+    width: 100%;
+    height: auto;
+    min-height: 50vh;
+    display: flex;
+    flex-direction: row;
+    gap: 10vw;
+    padding: 20px;
+    overflow: hidden;
+    position: relative;
+    background-color: transparent;
+    margin-top: 50px;
+    align-items: center;
+    transform: translateY(100px);
+}
+
+.insights-images .carousel-track {
+    display: flex;
+    gap: 20px;
+    animation: scroll 150s linear infinite;
+}
+
+.insights-images img {
+    width: 30vw;
+    height: 40vh;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+    flex-shrink: 0;
+    margin: 0 10px;
+    position: relative;
+}
+
+.insights-images img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0px 50px rgba(17, 0, 255, 0.3);
+    z-index: 1;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(calc(-50%));
+    }
+}
+
+.carousel-track {
+    width: auto;
+    height: auto;
+}
+
+.question-container {
+    margin-top: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    background-color: #000000;
+    width: 100vw;
+    height: 100vh;
+    padding-bottom: 27vh;
+}
+
+.question, .highlight-red, .highlight-blue {
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+    width: 400px;
+    font-family: 'coolvetica', sans-serif;
+    transform: translateY(-280px);
+    letter-spacing: 2px;
+}
+
+.highlight-red {
+    color: #d80000;
+}
+
+.highlight-blue {
+    color: #0023e8;
+}
+
+.question.visible {
+    opacity: 1;
+    transform: translateY(-280px) scale(1.1);
+}
+
+.left-container {
+    width: 300px;
+    height: 450px;
+    background-color: #000000;
+    border: 3px solid #d80000;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    transform: translateX(100px);
+    transition: all 0.8s ease-in-out;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+}
+
+.left-container .gradient-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 50%, 
+        rgba(255, 0, 0, 0.8) 0%, 
+        rgba(255, 0, 0, 0.8) var(--fill-size, 0%), 
+        rgba(0, 0, 0, 0) var(--fill-size, 0%));
+    transition: --fill-size 1s ease-in-out;
+    pointer-events: none;
+}
+
+.left-container:hover {
+    transform: translateX(100px) scale(1.05);
+    border: 3px solid #ff0000;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+}
+
+.left-container img {
+    width: 50%;
+    height: 50%;
+    object-fit: contain;
+    position: relative;
+    z-index: 2;
+    transition: all 0.8s ease-in-out;
+}
+
+.left-container:hover img {
+    transform: scale(1.2);
+    transform: translateY(-100px);
+}
+
+.left-container h1 {
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    opacity: 0;
+    transform: translateY(-30px);
+    transition: all 0.8s ease-in-out;
+    font-family: 'lemon-milk';
+    margin-bottom: 20px;
+}
+
+.left-container:hover h1 {
+    opacity: 1;
+    transform: translateY(-140px);
+    transition: all 1.2s cubic-bezier(.47,.13,.26,.99) 0.5s;
+}
+
+.left-container p {
+    color: #ffffff;
+    font-size: 18px;
+    text-align: left;
+    position: fixed;
+    z-index: 2;
+    opacity: 0;
+    transform: translateY(200px);
+    transition: all 0.8s ease-in-out;
+    font-family: 'Arial';
+    width: 100%;
+    padding: 20px;
+    line-height: 1.5;
+}
+
+.left-container:hover p {
+    opacity: 1;
+    transform: translateY(90px);
+    transition: all 1.2s cubic-bezier(.47,.13,.26,.99) 1s;
+}
+
+.right-container {
+    width: 300px;
+    height: 450px;
+    background-color: #000000;
+    border: 3px solid #0023e8;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    transform: translateX(-100px);
+    transition: all 0.8s ease-in-out;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.right-container .gradient-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 50%, 
+        rgba(0, 68, 255, 0.8) 0%, 
+        rgba(0, 68, 255, 0.8) var(--fill-size, 0%), 
+        rgba(0, 0, 0, 0) var(--fill-size, 0%));
+    transition: --fill-size 1s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+}
+
+.right-container:hover {
+    transform: translateX(-100px) scale(1.05);
+    border: 3px solid #0044ff;
+    box-shadow: 0 0 20px rgba(0, 68, 255, 0.3);
+}
+
+.right-container img {
+    width: 50%;
+    height: 50%;
+    object-fit: contain;
+    position: relative;
+    z-index: 2;
+    transition: all 0.8s ease-in-out;
+}
+
+.right-container:hover img {
+    transform: scale(1.2);
+    transform: translateY(-100px);
+}
+
+.right-container h1 {
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    opacity: 0;
+    transform: translateY(-30px);
+    transition: all 0.8s ease-in-out;
+    font-family: 'lemon-milk';
+    margin-bottom: 20px;
+}
+
+.right-container:hover h1 {
+    opacity: 1;
+    transform: translateY(-140px);
+    transition: all 1.2s cubic-bezier(.47,.13,.26,.99) 0.5s;
+}
+
+.right-container p {
+    color: #ffffff;
+    font-size: 18px;
+    text-align: left;
+    position: fixed;
+    z-index: 2;
+    opacity: 0;
+    transform: translateY(200px);
+    transition: all 0.8s ease-in-out;
+    font-family: 'Arial';
+    width: 100%;
+    padding: 20px;
+    line-height: 1.5;
+}
+
+.right-container:hover p {
+    opacity: 1;
+    transform: translateY(90px);
+    transition: all 1.2s cubic-bezier(.47,.13,.26,.99) 1s;
+}
+
+@font-face {
+    font-family: 'lemon-milk';
+    src: url('../../files/font/LEMONMILK-Regular.woff2');
+}
+
+@font-face {
+    font-family: 'coolvetica';
+    src: url('../../files/font/Coolvetica-Rg.woff2');
+}

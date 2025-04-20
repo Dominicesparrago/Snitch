@@ -1,0 +1,113 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snitch</title>
+    <link rel="stylesheet" href="classroom.css">
+</head>
+<body>
+
+    <div class="content">
+        <div class="classroom-content">
+            <div class="classroom-rules-background">
+                <p class="activity-title">Rules</p>
+                <div class="activity-rules">
+                    <ul class="rules-list">
+                        <li>No changing tabs</li>
+                        <li>30s per question</li>
+                        <li>AI usage is prohibited</li>
+                        <li>Review your view</li>
+                        <li>Jump every jump</li>
+                    </ul>
+                </div>
+                <div class="widget-content">
+                    <div class="clock" id="clock"></div>
+                    <div class="date" id="date"></div>
+                </div>
+            </div>
+            <div class="activity-content">
+                <p class="activity-subject-title">Discrete Structure 101</p>
+                <p class="activity-subject-assessment">Quiz # 1</p>
+                <div class="activity-bracket">
+                    <div class="activity-container">
+                        <p class="questionaire"><span class="activity-number">1.</span> Kiara baked 30 oatmeal cookies and 48 chocolate chip cookies. If she wants to divide them into identical containers with the maximum possible number of cookies, how many containers does she need?</p>
+
+                        <div class="answers-bracket">
+                            <input class="activity-answer" id="activityAnswer" type="text" placeholder="Enter your answer">
+                            <button class="answer-enter" onclick="validateAnswer()">Done</button>
+                            <button class="answer-checker">Check answer</button>
+                        </div>
+
+                        <p class="questionaire"><span class="activity-number">2.</span> Kiara baked 30 oatmeal cookies and 48 chocolate chip cookies. If she wants to divide them into identical containers with the maximum possible number of cookies, how many containers does she need?</p>
+
+                        <div class="answers-bracket">
+                            <input class="activity-answer" id="activityAnswer" type="text" placeholder="Enter your answer">
+                            <button class="answer-enter" onclick="validateAnswer()">Done</button>
+                            <button class="answer-checker">Check answer</button>
+                        </div>
+
+                        <p class="questionaire"><span class="activity-number">3.</span> Kiara baked 30 oatmeal cookies and 48 chocolate chip cookies. If she wants to divide them into identical containers with the maximum possible number of cookies, how many containers does she need?</p>
+
+                        <div class="answers-bracket">
+                            <input class="activity-answer" id="activityAnswer" type="text" placeholder="Enter your answer">
+                            <button class="answer-enter" onclick="validateAnswer()">Done</button>
+                            <button class="answer-checker">Check answer</button>
+                        </div>
+
+                        <p class="questionaire"><span class="activity-number">4.</span> Kiara baked 30 oatmeal cookies and 48 chocolate chip cookies. If she wants to divide them into identical containers with the maximum possible number of cookies, how many containers does she need?</p>
+
+                        <div class="answers-bracket">
+                            <input class="activity-answer" id="activityAnswer" type="text" placeholder="Enter your answer">
+                            <button class="answer-enter" onclick="validateAnswer()">Done</button>
+                            <button class="answer-checker">Check answer</button>
+                        </div>
+
+                        <p class="questionaire"><span class="activity-number">5.</span> Kiara baked 30 oatmeal cookies and 48 chocolate chip cookies. If she wants to divide them into identical containers with the maximum possible number of cookies, how many containers does she need?</p>
+
+                        <div class="answers-bracket">
+                            <input class="activity-answer" id="activityAnswer" type="text" placeholder="Enter your answer">
+                            <button class="answer-enter" onclick="validateAnswer()">Done</button>
+                            <button class="answer-checker">Check answer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="classroom.js"></script>
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+            const day = now.getDate();
+            const month = now.getMonth() + 1;
+            const year = now.getFullYear();
+
+            const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            const formattedDate = `${String(day).padStart(2, '0')}/${String(month).padStart(2, '0')}/${year}`;
+
+            document.getElementById("clock").textContent = formattedTime;
+            document.getElementById("date").textContent = formattedDate;
+        }
+
+        function validateAnswer() {
+            const input = document.getElementById("activityAnswer").value;
+            const errorMsg = document.getElementById("error-message");
+            if (!input) {
+                errorMsg.style.display = "block";
+            } else {
+                errorMsg.style.display = "none";
+            }
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+
+</body>
+</html>

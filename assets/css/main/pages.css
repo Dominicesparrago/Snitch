@@ -1,0 +1,481 @@
+/* Profile Section Styles */
+.profile-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.profile-card {
+    background: rgb(32, 32, 32);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.profile-large {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #444444;
+}
+
+.profile-info h2 {
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+    color: #ffffff;
+}
+
+.profile-info p {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 15px;
+}
+
+.edit-profile-btn {
+    background: #444444;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.edit-profile-btn:hover {
+    background: #555555;
+    transform: translateY(-2px);
+}
+
+.profile-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.detail-item {
+    background: #444444;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.detail-item label {
+    display: block;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+.detail-item p {
+    color: #ffffff;
+    font-size: 1.1rem;
+}
+
+/* Classroom Section Styles */
+.classroom-card {
+    display: flex;
+    flex-direction: column;
+    background: rgb(32, 32, 32);
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.classroom-card:hover {
+    transform: translateY(-5px);
+    background: #444444;
+}
+
+.classroom-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.classroom-header h3 {
+    color: #ffffff;
+    font-size: 1.2rem;
+}
+
+.classroom-stats {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.classroom-stats .stat {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.view-class-btn {
+    text-align: center;
+    width: 100%;
+    background: #444444;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.view-class-btn:hover {
+    background: #555555;
+}
+
+/* Classroom Image Styles */
+.classroom-image {
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+    border-radius: 8px 8px 0 0;
+    margin-bottom: 15px;
+}
+
+.classroom-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.classroom-card:hover .classroom-image img {
+    transform: scale(1.05);
+}
+
+/* Image Upload Styles */
+.image-upload-container {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.image-preview {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    background: #333333;
+    border: 2px dashed #444444;
+}
+
+.image-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.upload-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.upload-overlay i {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.upload-overlay span {
+    font-size: 0.9rem;
+}
+
+.image-preview:hover .upload-overlay {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+/* Settings Section Styles */
+.settings-card {
+    background: rgb(32, 32, 32);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.settings-group {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background: #444444;
+    border-radius: 8px;
+}
+
+.setting-item label {
+    color: #ffffff;
+    font-size: 1rem;
+}
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-switch label {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #666;
+    transition: .4s;
+    border-radius: 24px;
+}
+
+.toggle-switch label:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+.toggle-switch input:checked + label {
+    background-color: #2196F3;
+}
+
+.toggle-switch input:checked + label:before {
+    transform: translateX(26px);
+}
+
+/* Help Section Styles */
+.help-card {
+    background: rgb(32, 32, 32);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.faq-item {
+    background: #444444;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.faq-item h4 {
+    color: #ffffff;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.faq-item p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* Create Classroom Form Styles */
+.create-classroom-form {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #ffffff;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #444444;
+    border-radius: 8px;
+    background: #333333;
+    color: #ffffff;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #666666;
+    background: #444444;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.cancel-btn,
+.create-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cancel-btn {
+    background: #444444;
+    color: #ffffff;
+}
+
+.cancel-btn:hover {
+    background: #555555;
+    transform: translateY(-2px);
+}
+
+.create-btn {
+    background: #fdfdfd;
+    color: #000000;
+}
+
+.create-btn:hover {
+    background: #ffffff;
+    transform: translateY(-2px);
+}
+
+.add-classroom-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #ffffff;
+    padding: 20px;
+    height: 100%;
+    transition: all 0.3s ease;
+}
+
+.add-classroom-link:hover {
+    transform: scale(1.05);
+}
+
+.add-classroom-link i {
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+.add-classroom-link h3 {
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.add-classroom-link p {
+    color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+}
+
+/* Classroom Actions Styles */
+.classroom-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin-top: auto;
+}
+
+.delete-class-btn {
+    background: none;
+    border: none;
+    color: #ff4444;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.delete-class-btn:hover {
+    background-color: rgba(255, 68, 68, 0.1);
+    transform: scale(1.1);
+}
+
+.delete-class-btn i {
+    font-size: 1.2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .profile-details {
+        grid-template-columns: 1fr;
+    }
+
+    .classroom-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .settings-group {
+        gap: 15px;
+    }
+
+    .setting-item {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+} 

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Teacher Info</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+    }
+    .teacher-card {
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .teacher-card h2 {
+      margin: 0 0 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Teachers and Their Classrooms</h1>
+  <div id="teacherContainer"></div>
+
+  <script>
+    fetch('/api/teacher-data')
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById('teacherContainer');
+        data.forEach(item => {
+          const card = document.createElement('div');
+          card.className = 'teacher-card';
+          card.innerHTML = `
+            <h2>${item.name} (ID: ${item.teacherID})</h2>
+            <p><strong>Email:</strong> ${item.emailAddress}</p>
+            <p><strong>Contact:</strong> ${item.contactNumber}</p>
+            <p><strong>Classes Created:</strong> ${item.classesCreated}</p>
+            <p><strong>Class Activities:</strong> ${item.classActivities}</p>
+            <hr>
+            <p><strong>Classroom:</strong> ${item.classroom || "N/A"}</p>
+            <p><strong>Section:</strong> ${item.section || "N/A"}</p>
+            <p><strong>Activities:</strong> ${item.activities || 0}</p>
+            <p><strong>Score:</strong> ${item.score || 0}</p>
+            <p><strong>Participants:</strong> ${item.participants || 0}</p>
+          `;
+          container.appendChild(card);
+        });
+      })
+      .catch(err => {
+        console.error('Error fetching data:', err);
+      });
+  </script>
+
+</body>
+</html>

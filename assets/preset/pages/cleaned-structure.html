@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snitch</title>   
+    <link rel="stylesheet" href="../assets/css/cleaned-structure.css">
+
+</head>
+<body>
+
+    <div id="loading-screen">
+        <div class="terminal-loader">
+            <div class="terminal-header">
+                <div class="terminal-title">Status</div>
+                <div class="terminal-controls">
+                    <div class="control close"></div>
+                    <div class="control minimize"></div>
+                    <div class="control maximize"></div>
+                </div>
+            </div>
+            <div class="terminal-text">Loading...</div>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="sidebar">
+            <div class="logo" style="display: flex; align-items: center; gap: 10px; margin-bottom: 30px;">
+                <img src="../assets/images/icons/logonamen.png" alt="Classroom" style="width: 50px; height: 50px;">
+                <p class="title-sidebar">SNITCH</p>
+            </div>
+            <a href="#" class="nav-item active" data-target="home-page">
+                <img class="iconsSidebar" src="../assets/images/icons/home.ico" alt="Home">
+                <span>Home</span>
+            </a>
+            <a href="#" class="nav-item" data-target="profile-page">
+                <img class="iconsSidebar" src="../assets/images/icons/profile.ico" alt="Profile"> 
+                <span>Profile</span>
+            </a>
+            <a href="#" class="nav-item" data-target="classroom-page">
+                <img class="iconsSidebar" src="../assets/images/icons/classroom.ico" alt="Classroom">
+                <span>Classroom</span>
+            </a>
+            <a href="#" class="nav-item" data-target="settings-page">
+                <img class="iconsSidebar" src="../assets/images/icons/settings.ico" alt="Settings">
+                <span>Settings</span>
+            </a>
+            <a href="#" class="nav-item" data-target="help-page">
+                <img class="iconsSidebar" src="../assets/images/icons/help.ico" alt="Help">
+                <span>Help</span>
+            </a>
+        </div>
+    
+        <!-- Main contents -->
+
+        <div class="main-content">
+
+            <!-- Home -->
+
+            <div class="page" id="home-page" style="display: block;">
+                <h1 class="head-title">Welcome, User!</h1>
+                <div class="scroll-grid">
+                    <div class="class-grid">
+                        <div class="class-card" data-subject="thesis" data-section="BSCS-1A">
+                            <img class="image-class" src="../assets/images/class-images/xample1.jpg" alt="Class Image">
+                            <div class="class-card-header">
+                                <div class="class-info-background">
+                                    <p class="class-subject">Algorithms</p>
+                                    <p class="class-section">BSCS - 1A</p>
+                                    <p class="class-activities-info">Activities: 10</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="class-card" data-subject="dsa" data-section="BSCS-1B">
+                            <img class="image-class" src="../assets/images/class-images/xample3.jpg" alt="Class Image">
+                            <div class="class-card-header">
+                                <div class="class-info-background">
+                                    <p class="class-subject">Discrete Structure</p>
+                                    <p class="class-section">BSCS - 1B</p>
+                                    <p class="class-activities-info">Activities: 9</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="class-card" data-subject="programming" data-section="BSCS-1D">
+                            <img class="image-class" src="../assets/images/class-images/xample4.jpg" alt="Class Image">
+                            <div class="class-card-header">
+                                <div class="class-info-background">
+                                    <p class="class-subject">Discrete Structure 101</p>
+                                    <p class="class-section">BSCS - 1D</p>
+                                    <p class="class-activities-info">Activities: 12</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="class-card" data-subject="rizal" data-section="BSTM-3A">
+                            <img class="image-class" src="../assets/images/class-images/xample5.jpg" alt="Class Image">
+                            <div class="class-card-header">
+                                <div class="class-info-background">
+                                    <p class="class-subject">Entreprenuer</p>
+                                    <p class="class-section">BSTM - 3A</p>
+                                    <p class="class-activities-info">Activities: 8</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="home-lower-bracket">
+                    <div class="home-notes">
+                        <p class="home-notes-title">Notes</p>
+                        <div class="notes-container">
+                            <div class="notes-sidebar">
+                                <button class="add-note-btn" onclick="addNewNote()">
+                                    <i class="plus-icon">+</i> New Note
+                                </button>
+                                <div class="notes-list" id="notes-list">
+                                    <!-- Notes list will be populated here -->
+                                </div>
+                            </div>
+                            <div class="notes-content">
+                                <div class="note-header">
+                                    <input type="text" class="note-title-input" id="current-note-title" placeholder="Note Title">
+                                    <div class="note-actions">
+                                        <button class="save-note-btn" onclick="saveCurrentNote()">Save</button>
+                                        <button class="delete-note-btn" onclick="deleteCurrentNote()">Delete</button>
+                                    </div>
+                                </div>
+                                <textarea id="note-content" class="note-content-area" placeholder="Write your note here..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="announcement">
+                        <p class="announcement-title">Announcement</p>
+                        <div class="announcement-box">
+                            <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2FSCC.CSSociety%2Fposts%2Fpfbid0iNEEGxnTYFv3vrPibuMeiv2qET5ZGn7CTT4RnPfPTTx7duakcC2cVRDXVrwcx6hzl&show_text=true&width=10px" width="100%" height="550" style="border: black; border-width: 0px; overflow:hidden; " scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; web-share;"></iframe> 
+
+                            <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2FSCC.CSSociety%2Fposts%2Fpfbid0r5zRD8qXhAGRU26QYAyEBL3aemAp4Q2otHXHBgzzWK4Q55eQtksLCd6zYuhAjmwRl&show_text=true&width=10px" width="100%" height="550" style="border: black; border-width: 0px; overflow:hidden; " scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; web-share;"></iframe>
+
+                            <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2FSCC.CSSociety%2Fposts%2Fpfbid0vRq3xVFpWpMK8kdCQ2BGde6Bqw1CSpwMnjQVVoGqjCuQ2vY1u2rRYBVQaZnHiu6rl&show_text=true&width=10px" width="100%" height="550" style="border: black; border-width: 0px; overflow:hidden; " scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; web-share;"></iframe>
+
+                            <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2FSCC.CSSociety%2Fposts%2Fpfbid02znydq3qF3TWkkScJkb52QGUdGDWvhotij1r51di5qEfGTKMrYfwJJXNL7AKCJ6kkl&show_text=true&width=10px" width="100%" height="649" style="border: black; border-width: 0px; overflow:hidden; " scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; web-share;"></iframe>
+
+                            <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2FSCC.CSSociety%2Fposts%2Fpfbid0iNEEGxnTYFv3vrPibuMeiv2qET5ZGn7CTT4RnPfPTTx7duakcC2cVRDXVrwcx6hzl&show_text=true&width=10px" width="100%" height="550" style="border: black; border-width: 0px; overflow:hidden; " scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; web-share;"></iframe> 
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Profile -->
+
+            <div class="page" id="profile-page" style="display: none;">
+                <h1 class="head-title">Profile</h1>
+                <div class="profile-info">
+                    <div class="profile-bracket">
+                        <img src="../assets/images/class-images/xample4.jpg" class="profile-image">
+                        <div class="profile-body">
+                            <p class="profile-name">Mang E. Juan</p>
+                            <a class="profile-bio">Fundamentals of programming</a>
+                            <p class="profile-school">Teacher in SCC</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Classroom -->
+
+            <div class="page" id="classroom-page" style="display: none;">
+                <h1 class="head-title">Classroom</h1>
+                <div class="classroom-bracket">
+                    <div class="classroom-class">
+                        <p class="classroom-title">Subjects</p>
+                        <div class="classroom-subjects">
+                            <div class="subject-item" onclick="toggleScores('thesis')">Thesis 1 & 2</div>
+                            <div class="subject-item" onclick="toggleScores('dsa')">Data Structure and Algorithm</div>
+                            <div class="subject-item" onclick="toggleScores('programming')">Fundamentals of Programming</div>
+                            <div class="subject-item" onclick="toggleScores('rizal')">Life & Works of Rizal</div>
+                        </div>
+                    </div>
+                    <div class="classroom-info">
+                        <p class="classroom-title">Information</p>
+                        <div class="subject-scores" id="subject-scores">
+                            <div class="scores hidden" id="thesis-scores">
+                                <h3>Thesis 1 & 2</h3>
+                                <p>Activities: 10</p>
+                                <div class="subject-scores-column">
+                                    <div class="subject-user-bracket">
+                                        <p class="user-info-classroom">dominicesparrago.scc@gmail.com</p>
+                                        <p class="user-score">9/15</p>
+                                    </div>
+                                    <div class="subject-user-bracket">
+                                        <p class="user-info-classroom">kenemebestro.scc@gmail.com</p>
+                                        <p class="user-score">9/15</p>
+                                    </div>
+                                    <div class="subject-user-bracket">
+                                        <p class="user-info-classroom">markaranes.scc@gmail.com</p>
+                                        <p class="user-score">9/15</p>
+                                    </div>
+                                    <div class="subject-user-bracket">
+                                        <p class="user-info-classroom">triciamaemontano.scc@gmail.com</p>
+                                        <p class="user-score">9/15</p>
+                                    </div>
+                                    <div class="subject-user-bracket">
+                                        <p class="user-info-classroom">johnpaulgalano.scc@gmail.com</p>
+                                        <p class="user-score">9/15</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="scores hidden" id="dsa-scores">
+                                <h3>Data Structure and Algorithm</h3>
+                                <p>Activities: 9</p>
+                                
+                            </div>
+                            <div class="scores hidden" id="programming-scores">
+                                <h3>Fundamentals of Programming</h3>
+                                <p>Activities: 10</p>
+                                
+                            </div>
+                            <div class="scores hidden" id="rizal-scores">
+                                <h3>Life & Works of Rizal</h3>
+                                <p>Activities: 12</p>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Settings -->
+
+            <div class="page settings-page" id="settings-page" style="display: none;">
+                <h1 class="head-title">Settings</h1>
+            
+                <div class="setting-option">
+                    <h3>Anti-Cheat</h3>
+                    <p>Toggle AI detection or third-party program monitoring.</p>
+                    <label class="switch">
+                        <input type="checkbox" id="antiCheatToggle">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            
+                <div class="setting-option">
+                    <h3>Monitor Class</h3>
+                    <p>Enable class monitoring during activities.</p>
+                    <label class="switch">
+                        <input type="checkbox" id="monitorClassToggle">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            
+                <div class="setting-option">
+                    <h3>Reset Password</h3>
+                    <p>Reset your password by receiving a verification code via email.</p>
+                    <button class="check-button">Check</button>
+                </div>
+            
+                <div class="setting-option">
+                    <h3>Reset Email</h3>
+                    <p>Reset your email by verifying with an OTP sent to your phone number.</p>
+                    <button class="check-button">Go</button>
+                </div>
+            </div>
+                      
+    
+            <!-- Help -->
+
+            <div class="page" id="help-page" style="display: none;">
+                <h1 class="head-title">Help</h1>
+            
+                <div class="help-container">
+                    <h2>FAQs</h2>
+            
+                    <div class="faq-item">
+                        <p>How to reset password?</p>
+                        <button class="help-button">Reset password</button>
+                    </div>
+            
+                    <div class="faq-item">
+                        <p>How to use this application?</p>
+                        <button class="help-button">Use this application</button>
+                    </div>
+            
+                    <div class="faq-item">
+                        <p>How to make a class?</p>
+                        <button class="help-button">Make a class</button>
+                    </div>
+            
+                    <div class="faq-item">
+                        <p>How to join a class?</p>
+                        <button class="help-button">Join a class</button>
+                    </div>
+            
+                    <h2>Report Issues</h2>
+                    <button class="help-button report">Report an Issue</button>
+            
+                    <p>If you find any bugs, please contact customer support via email:</p>
+            
+                    <ul class="email-list">
+                        <li><a href="mailto:haru123@gmail.com">haru123@gmail.com</a></li>
+                        <li><a href="mailto:wapols092304@gmail.com">wapols092304@gmail.com</a></li>
+                        <li><a href="mailto:pierremayora@gmail.com">pierremayora@gmail.com</a></li>
+                        <li><a href="mailto:aluakhbar21@gmail.com">aluakhbar21@gmail.com</a></li>
+                        <li><a href="mailto:dnd@gmail.com">dnd@gmail.com</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+
+
+
+    <script src="../assets/js/cleaned-function.js"></script>
+    <script>
+        // Fix loading screen
+        window.addEventListener('load', () => {
+            const loadingScreen = document.getElementById('loading-screen');
+            const mainContent = document.querySelector('.main-content');
+            
+            // Hide loading screen and show main content
+            loadingScreen.style.opacity = '0';
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+                mainContent.style.display = 'block';
+                setTimeout(() => {
+                    mainContent.style.opacity = '1';
+                }, 100);
+            }, 1000);
+        });
+
+        function toggleScores(subject) {
+            let allScores = document.querySelectorAll('.scores');
+            allScores.forEach(score => score.classList.add('hidden'));
+            
+            let selectedScore = document.getElementById(subject + '-scores');
+            selectedScore.classList.toggle('hidden');
+        }
+        
+        // Notes functionality
+        let notes = JSON.parse(localStorage.getItem('notes')) || [];
+        let currentNoteId = null;
+
+        function addNewNote() {
+            const note = {
+                id: Date.now(),
+                title: 'Untitled Note',
+                content: '',
+                lastModified: new Date().toISOString()
+            };
+            notes.unshift(note);
+            currentNoteId = note.id;
+            saveNotes();
+            updateNotesList();
+            displayNote(note);
+        }
+
+        function saveCurrentNote() {
+            if (!currentNoteId) return;
+            
+            const title = document.getElementById('current-note-title').value;
+            const content = document.getElementById('note-content').value;
+            const noteIndex = notes.findIndex(note => note.id === currentNoteId);
+            
+            if (noteIndex !== -1) {
+                notes[noteIndex] = {
+                    ...notes[noteIndex],
+                    title: title || 'Untitled Note',
+                    content: content,
+                    lastModified: new Date().toISOString()
+                };
+                saveNotes();
+                updateNotesList();
+            }
+        }
+
+        function deleteCurrentNote() {
+            if (!currentNoteId) return;
+            
+            if (confirm('Are you sure you want to delete this note?')) {
+                notes = notes.filter(note => note.id !== currentNoteId);
+                saveNotes();
+                updateNotesList();
+                currentNoteId = notes.length > 0 ? notes[0].id : null;
+                if (currentNoteId) {
+                    displayNote(notes[0]);
+                } else {
+                    clearNoteDisplay();
+                }
+            }
+        }
+
+        function displayNote(note) {
+            currentNoteId = note.id;
+            document.getElementById('current-note-title').value = note.title;
+            document.getElementById('note-content').value = note.content;
+        }
+
+        function clearNoteDisplay() {
+            currentNoteId = null;
+            document.getElementById('current-note-title').value = '';
+            document.getElementById('note-content').value = '';
+        }
+
+        function updateNotesList() {
+            const notesList = document.getElementById('notes-list');
+            notesList.innerHTML = notes.map(note => `
+                <div class="note-item ${note.id === currentNoteId ? 'active' : ''}" 
+                     onclick="displayNote(${JSON.stringify(note).replace(/"/g, '&quot;')})">
+                    <div class="note-item-title">${note.title}</div>
+                    <div class="note-item-date">${new Date(note.lastModified).toLocaleDateString()}</div>
+                </div>
+            `).join('');
+        }
+
+        function saveNotes() {
+            localStorage.setItem('notes', JSON.stringify(notes));
+        }
+
+        // Initialize notes
+        window.addEventListener('load', () => {
+            if (notes.length > 0) {
+                displayNote(notes[0]);
+                updateNotesList();
+            }
+        });
+    </script>
+        
+</body> 
+</html>

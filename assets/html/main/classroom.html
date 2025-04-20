@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snitch - Classroom</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/main/dashboard.css">
+    <link rel="stylesheet" href="../../css/main/pages.css">
+    <style>
+        .classroom-card {
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-bottom: 20px;
+        }
+        
+        .classroom-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .join-classroom {
+            background-color: rgba(74, 144, 226, 0.1);
+            border: 2px dashed rgba(74, 144, 226, 0.5);
+            cursor: pointer;
+        }
+        
+        .join-classroom:hover {
+            background-color: rgba(74, 144, 226, 0.15);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+            transform: translateY(-5px);
+        }
+        
+        .join-classroom-content, .add-classroom-content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .join-class-btn, .add-classroom-link {
+            color: #e0e0e0;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .join-class-btn i, .add-classroom-link i {
+            font-size: 32px;
+            margin-bottom: 16px;
+            color: #4a90e2;
+        }
+        
+        .join-class-btn h3, .add-classroom-link h3 {
+            margin-bottom: 10px;
+            color: #e0e0e0;
+        }
+        
+        .join-class-btn p, .add-classroom-link p {
+            color: #aaa;
+            margin-top: 10px;
+        }
+        
+        /* Role indicator styles */
+        .role-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 15px;
+            border-radius: 50px;
+            color: white;
+            font-weight: bold;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .role-teacher {
+            background-color: #4CAF50;
+        }
+        
+        .role-student {
+            background-color: #3498db;
+        }
+        
+        .role-unknown {
+            background-color: #e74c3c;
+        }
+        
+        .role-indicator i {
+            margin-right: 8px;
+        }
+        
+        /* Teacher-specific elements */
+        .teacher-only {
+            display: none; /* Hidden by default */
+        }
+        
+        /* Student-specific elements */
+        .student-only {
+            display: none; /* Hidden by default */
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="../../files/icons/Teacher.png" alt="Snitch Logo">
+                <h2>Snitch</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <a href="dashboard.html">
+                            <i class="fas fa-home"></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li>
+                        <a href="profile.html">
+                            <i class="fas fa-user"></i>
+                            Profile
+                        </a>
+                    </li>
+                    <li>
+                        <a href="classroom.html" class="active">
+                            <i class="fas fa-chalkboard"></i>
+                            Classroom
+                        </a>
+                    </li>
+                    <li>
+                        <a href="settings.html">
+                            <i class="fas fa-cog"></i>
+                            Settings
+                        </a>
+                    </li>
+                    <li>
+                        <a href="help.html">
+                            <i class="fas fa-question-circle"></i>
+                            Help
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="login.html" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search classrooms...">
+                </div>
+                <div class="user-profile">
+                    <div class="notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </div>
+                    <div class="profile-dropdown">
+                        <img src="../../files/images/default-profile.png" alt="Profile" class="profile-img">
+                        <span class="username">John Doe</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <div class="welcome-section">
+                    <h1>My Classrooms</h1>
+                    <p>Manage your classrooms and students</p>
+                </div>
+                
+                <!-- STUDENT-ONLY SECTION -->
+                <div id="student-action-button" class="classroom-card join-classroom student-only" style="max-width: 500px; margin: 20px 0;">
+                    <div class="join-classroom-content">
+                        <a href="join-classroom.html" class="join-class-btn">
+                            <i class="fas fa-plus"></i>
+                            <h3>Join Classroom</h3>
+                            <p>Enter the classroom code provided by your teacher to join a class</p>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="classroom-grid" id="classroomGrid">
+                    <!-- Example classroom card (will be replaced dynamically) -->
+                    <div class="classroom-card">
+                        <div class="classroom-image">
+                            <img src="../../files/images/default-imageprofile.jpg" alt="default-imageprofile">
+                        </div>
+                        <div class="classroom-header">
+                            <h3>Introduction to Programming</h3>
+                            <span class="class-section">BSCS-1A</span>
+                        </div>
+                        <div class="classroom-stats">
+                            <div class="stat">
+                                <i class="fas fa-users"></i>
+                                <span class="class-participants">25 Students</span>
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-tasks"></i>
+                                <span class="class-activities">5 Assignments</span>
+                            </div>
+                        </div>
+                        <div class="classroom-actions">
+                            <a href="view-classroom.html?id=1" class="view-class-btn">View Class</a>
+                            <button class="delete-class-btn" data-id="1">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- TEACHER-ONLY SECTION -->
+                    <div id="create-classroom-card" class="classroom-card add-classroom teacher-only">
+                        <div class="add-classroom-content">
+                            <a href="create-classroom.html" class="add-classroom-link">
+                                <i class="fas fa-plus"></i>
+                                <h3>Create New Classroom</h3>
+                                <p>Start a new class and invite students</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Role indicator -->
+    <div id="role-indicator" class="role-indicator role-unknown">
+        <i class="fas fa-question-circle"></i>
+        <span>Detecting role...</span>
+    </div>
+
+    <script src="../../js/main/pages.js"></script>
+    <script>
+        // Role detector script - runs BEFORE the main script to set up the UI correctly
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get user data
+            const userData = JSON.parse(localStorage.getItem('userData'));
+            console.log("Role detector - userData:", userData);
+            
+            // Update role indicator
+            const roleIndicator = document.getElementById('role-indicator');
+            
+            // Set up UI based on role
+            if (userData) {
+                const isTeacher = userData.role === 'teacher' || (userData.teacherID && !userData.studentID);
+                const isStudent = userData.role === 'student' || (userData.studentID && !userData.teacherID);
+                
+                // Set teacher/student specific UI elements
+                const teacherElements = document.querySelectorAll('.teacher-only');
+                const studentElements = document.querySelectorAll('.student-only');
+                
+                if (isTeacher) {
+                    // Show teacher UI
+                    console.log("Setting up UI for TEACHER role");
+                    roleIndicator.className = 'role-indicator role-teacher';
+                    roleIndicator.innerHTML = '<i class="fas fa-chalkboard-teacher"></i><span>Teacher</span>';
+                    
+                    teacherElements.forEach(el => el.style.display = 'block');
+                    studentElements.forEach(el => el.style.display = 'none');
+                    
+                } else if (isStudent) {
+                    // Show student UI
+                    console.log("Setting up UI for STUDENT role");
+                    roleIndicator.className = 'role-indicator role-student';
+                    roleIndicator.innerHTML = '<i class="fas fa-user-graduate"></i><span>Student</span>';
+                    
+                    teacherElements.forEach(el => el.style.display = 'none');
+                    studentElements.forEach(el => el.style.display = 'block');
+                    
+                } else {
+                    console.log("Role unknown - can't determine teacher or student");
+                    roleIndicator.className = 'role-indicator role-unknown';
+                    roleIndicator.innerHTML = '<i class="fas fa-exclamation-triangle"></i><span>Role Unknown</span>';
+                }
+            } else {
+                console.log("No user data found");
+                roleIndicator.className = 'role-indicator role-unknown';
+                roleIndicator.innerHTML = '<i class="fas fa-exclamation-triangle"></i><span>No User Data</span>';
+            }
+            
+            // Allow clicking on the role indicator to show detailed info
+            roleIndicator.addEventListener('click', function() {
+                const userData = JSON.parse(localStorage.getItem('userData'));
+                alert('User Data: ' + JSON.stringify(userData, null, 2));
+            });
+        });
+    </script>
+    <script type="module" src="../../js/main/classroom.js"></script>
+</body>
+</html>

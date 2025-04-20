@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Login Portal</title>
+    <link rel="stylesheet" href="../../css/main/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="forms-container">
+            <div class="login-signup">
+                <form action="#" class="login-form teacher-form active">
+                    <h2>Teacher Login</h2>
+                    <div class="input-field">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="teacher-emailAddress" placeholder="Teacher ID">
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="teacher-password" placeholder="Password">
+                        <i class="fas fa-eye toggle-password" data-target="teacher-password"></i>
+                    </div>
+                    <div class="checkbox-text">
+                        <div class="checkbox-content">
+                            <input type="checkbox" id="teacher-remember">
+                            <label for="teacher-remember">Remember me</label>
+                        </div>
+                        <a href="#" class="text">Forgot password?</a>
+                    </div>
+                    <div class="input-field button">
+                        <input type="button" value="LOGIN" class="login-btn teacher-login-btn">
+                    </div>
+                    <div class="login-status" id="teacher-status"></div>
+                    <div class="login-signup">
+                        <span class="text">Not registered?
+                            <a href="signup.html" class="signup-link">Signup now</a>
+                        </span>
+                    </div>
+                    <div class="error-message" id="teacher-error"></div>
+                </form>
+
+                <form action="#" class="login-form student-form">
+                    <h2>Student Login</h2>
+                    <div class="input-field">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="student-emailAddress" placeholder="Student ID">
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="student-password" placeholder="Password">
+                        <i class="fas fa-eye toggle-password" data-target="student-password"></i>
+                    </div>
+                    <div class="checkbox-text">
+                        <div class="checkbox-content">
+                            <input type="checkbox" id="student-remember">
+                            <label for="student-remember">Remember me</label>
+                        </div>
+                        <a href="#" class="text">Forgot password?</a>
+                    </div>
+                    <div class="input-field button">
+                        <input type="button" value="LOGIN" class="login-btn student-login-btn">
+                    </div>
+                    <div class="login-status" id="student-status"></div>
+                    <div class="login-signup">
+                        <span class="text">Not registered?
+                            <a href="signup.html" class="signup-link">Signup now</a>
+                        </span>
+                    </div>
+                    <div class="error-message" id="student-error"></div>
+                </form>
+            </div>
+        </div>
+
+        <div class="panels-container">
+            <div class="panel left-panel teacher-panel active">
+                <div class="image-container">
+                    <img src="../../files/icons/Teacher.png" class="image" alt="teacher image">
+                </div>
+                <div class="content">
+                    <h3>Teacher Portal</h3>
+                    <p>Access your dashboard to manage classes, assignments, and view student records</p>
+                    <button class="btn transparent" id="student-btn">Student Login</button>
+                </div>
+            </div>
+
+            <div class="panel right-panel student-panel">
+                <div class="image-container">
+                    <img src="../../files/icons/Student.png" class="image" alt="student image">
+                </div>
+                <div class="content">
+                    <h3>Student Portal</h3>
+                    <p>Access your courses, assignments, grades and communicate with teachers</p>
+                    <button class="btn transparent" id="teacher-btn">Teacher Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="../../js/main/login.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const container = document.querySelector('.container');
+    const studentBtn = document.getElementById('student-btn');
+    const teacherBtn = document.getElementById('teacher-btn');
+    const teacherForm = document.querySelector('.teacher-form');
+    const studentForm = document.querySelector('.student-form');
+    const teacherPanel = document.querySelector('.teacher-panel');
+    const studentPanel = document.querySelector('.student-panel');
+
+    // Panel switching
+    studentBtn.addEventListener('click', () => {
+        container.classList.add('student-mode');
+        setTimeout(() => {
+            teacherForm.classList.remove('active');
+            studentForm.classList.add('active');
+            teacherPanel.classList.remove('active');
+            studentPanel.classList.add('active');
+        }, 400);
+    });
+
+    teacherBtn.addEventListener('click', () => {
+        container.classList.remove('student-mode');
+        setTimeout(() => {
+            studentForm.classList.remove('active');
+            teacherForm.classList.add('active');
+            studentPanel.classList.remove('active');
+            teacherPanel.classList.add('active');
+        }, 400);
+    });
+
+    // Password visibility toggle
+    document.querySelectorAll('.toggle-password').forEach(btn => {
+        btn.addEventListener('click', function () {
+            const targetId = this.getAttribute('data-target');
+            const passwordInput = document.getElementById(targetId);
+            const isHidden = passwordInput.type === 'password';
+            passwordInput.type = isHidden ? 'text' : 'password';
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+    });
+
+    // Input validation
+    function validateInputs(inputs) {
+        let isValid = true;
+        inputs.forEach(input => {
+            if (!input.value.trim()) {
+                const inputField = input.closest('.input-field');
+                inputField.classList.add('error');
+                setTimeout(() => inputField.classList.remove('error'), 3000);
+                isValid = false;
+            }
+        });
+        return isValid;
+    }
+
+    // Enter key support for login
+    function setupEnterKey(inputEl, buttonEl) {
+        inputEl.addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') buttonEl.click();
+        });
+    }
+
+    // Apply Enter key logic to all login fields
+    setupEnterKey(document.getElementById('teacher-emailAddress'), document.querySelector('.teacher-login-btn'));
+    setupEnterKey(document.getElementById('teacher-password'), document.querySelector('.teacher-login-btn'));
+    setupEnterKey(document.getElementById('student-emailAddress'), document.querySelector('.student-login-btn'));
+    setupEnterKey(document.getElementById('student-password'), document.querySelector('.student-login-btn'));
+
+    });
+
+    </script>
+</body>
+</html>
